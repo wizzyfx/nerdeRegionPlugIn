@@ -10,7 +10,8 @@
     "eslint:recommended"
   ],
   "rules": {
-    "semi": "error"
+    "semi": "error",
+    "indent": ["error", "tab"]
   },
   "env": {
     "browser": true,
