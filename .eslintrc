@@ -11,7 +11,12 @@
   ],
   "rules": {
     "semi": "error",
-    "indent": ["error", "tab"]
+    "indent": ["error", "tab"],
+    "space-before-blocks": "error",
+    "space-before-function-paren": "error",
+    "space-in-parens": "error",
+    "space-infix-ops": "error",
+    "comma-spacing": "error"
   },
   "env": {
     "browser": true,
