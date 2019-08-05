@@ -4,7 +4,7 @@
  * @author Ugurcan (Ugi) Kutluoglu <ugurcank@gmail.com>
  */
 
-const NerdeFocus = (function () {
+const NerdeRegion = (function () {
 
 	const regions = [
 		'[aria-live="polite"]',
@@ -18,20 +18,19 @@ const NerdeFocus = (function () {
 		chrome.extension.sendMessage(message);
 	};
 
-	const findRegions = () => {
-		document.querySelectorAll(regions.join(',')).forEach((element) => {
-			if(element.nerderegion === undefined) {
-				element.nerderegion = true;
-				element.dataset.nerderegion = 'init';
-				console.log(element);
-			}
-		});
+	const checkAttribute = (node, attribute, values) => {
+		if(node.attributes !== undefined &&
+			attribute in node.attributes &&
+			values.includes(node.attributes[attribute].nodeValue.toLowerCase())) {
+			return true;
+		}
+		return false;
 	};
 
 	const checkRegion = (mutation) => {
 		if (mutation.type === 'childList' && mutation.addedNodes !== undefined) {
 			for(let node of mutation.addedNodes) {
-				if(node.attributes !== undefined && 'aria-live' in node.attributes && ['polite', 'assertive'].includes(node.attributes['aria-live'].nodeValue.toLowerCase())) {
+				if(checkAttribute(node, 'aria-live', ['polite', 'assertive'])) {
 					return true;
 				}
 			}
@@ -42,8 +41,8 @@ const NerdeFocus = (function () {
 	const checkRole = (mutation) => {
 		if (mutation.type === 'childList' && mutation.addedNodes !== undefined) {
 			for(let node of mutation.addedNodes) {
-				if(node.attributes !== undefined && 'role' in node.attributes && ['alert', 'log', 'status'].includes(node.attributes['role'].nodeValue.toLowerCase())) {
-					if('aria-live' in node.attributes && node.attributes['aria-live'].nodeValue.toLowerCase() === 'off') {
+				if(checkAttribute(node, 'role', ['alert', 'log', 'status'])) {
+					if(checkAttribute(node, 'aria-live', ['off'])) {
 						return false;
 					}
 					return true;
@@ -53,7 +52,7 @@ const NerdeFocus = (function () {
 		return false;
 	};
 
-	const callback = (mutationsList)=>{
+	const pageMutation = (mutationsList)=>{
 		for(let mutation of mutationsList) {
 			if(checkRegion(mutation) || checkRole(mutation)) {
 				findRegions();
@@ -61,10 +60,29 @@ const NerdeFocus = (function () {
 		}
 	};
 
+	const regionMutation = (mutationsList)=>{
+		for(let mutation of mutationsList) {
+			console.log(mutation.target.textContent);
+		}
+	};
+
+	const pageObserver = new MutationObserver(pageMutation);
+	const regionObserver = new MutationObserver(regionMutation);
+
+	const findRegions = () => {
+		document.querySelectorAll(regions.join(',')).forEach((element) => {
+			if(element.nerderegion === undefined) {
+				element.nerderegion = true;
+				element.dataset.nerderegion = 'init';
+				console.log(element.textContent);
+				regionObserver.observe(element, {attributes:true, subtree:true, childList: true});
+			}
+		});
+	};
+
 	const initialize = () => {
 		findRegions();
-		const observer = new MutationObserver(callback);
-		observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+		pageObserver.observe(document.body, {attributeFilter:['role', 'aria-live'], subtree:true, childList: true});
 	};
 
 	if (document.readyState != 'loading') {
