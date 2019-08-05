@@ -1,0 +1,19 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "script",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "rules": {
+    "semi": "error"
+  },
+  "env": {
+    "browser": true,
+    "webextensions":true
+  }
+}
