@@ -75,8 +75,12 @@ const NerdeRegion = (function () {
 				element.nerderegion = true;
 				element.dataset.nerderegion = 'init';
 				console.log(element.textContent);
-				regionObserver.observe(element, {attributes:true, subtree:true, childList: true});
 			}
+		});
+		document.querySelectorAll('[data-nerderegion=init]').forEach((element) => {
+			element.dataset.nerderegion = 'track';
+			regionObserver.observe(element, {attributes:true, subtree:true, childList: true, characterData:true});
+
 		});
 	};
 
