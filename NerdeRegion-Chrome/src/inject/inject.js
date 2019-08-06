@@ -5,7 +5,7 @@
  */
 
 const NerdeRegion = (function () {
-
+	let watchList = [];
 	const regions = [
 		'[aria-live="polite"]',
 		'[aria-live="assertive"]',
@@ -16,6 +16,55 @@ const NerdeRegion = (function () {
 
 	const sendObjectToDevTools = (message) => {
 		chrome.extension.sendMessage(message);
+	};
+
+	const getPath = function (node) {
+		const commonNames = ['selected', 'active', 'focus', 'hover', 'enable', 'hidden', 'visible', 'valid', 'disable', 'col-'];
+		let path, allSiblings;
+		while (node) {
+			let realNode = node;
+			let name = realNode.tagName;
+			if (!name) {
+				break;
+			}
+			name = name.toLowerCase();
+			if (realNode.id && /^[A-Za-z][\da-zA-Z_:.-]/.test(realNode.id) && document.querySelectorAll('[id=' + realNode.id + ']').length === 1) {
+				name = '#' + realNode.id;
+				path = name + (path ? '>' + path : '');
+				break;
+			}
+			let className = '';
+			let classList = realNode.className.split(/\s+/);
+			for (let i = 0; i < classList.length; i++) {
+				if (/^[\da-zA-Z_-]/.test(classList[i]) && commonNames.findIndex(function (str) {return classList[i].indexOf(str) !== -1;}) === -1 && document.querySelectorAll('.' + classList[i]).length === 1) {
+					className = '.' + classList[i];
+					break;
+				}
+			}
+			if (className != '') {
+				path = className + (path ? '>' + path : '');
+				break;
+			}
+			let parent = node.parentNode;
+			if (parent) {
+				let sameTagSiblings = parent.querySelectorAll(name);
+				if (sameTagSiblings.length > 1) {
+					allSiblings = parent.childNodes;
+					let index = -1;
+					let num = 0;
+					for (let i = 0; i < allSiblings.length; i++) {
+						if (allSiblings[i] == node) {index = num;}
+						if (allSiblings[i].nodeType == 1) num++;
+					}
+					if (index > 1) {
+						name += ':nth-child(' + index + ')';
+					}
+				}
+			}
+			path = name + (path ? '>' + path : '');
+			node = parent;
+		}
+		return path;
 	};
 
 	const checkAttribute = (node, attribute, values) => {
@@ -60,10 +109,8 @@ const NerdeRegion = (function () {
 		}
 	};
 
-	const regionMutation = (mutationsList)=>{
-		for(let mutation of mutationsList) {
-			console.log(mutation.target.textContent);
-		}
+	const regionMutation = ()=>{
+		dumpRegions();
 	};
 
 	const pageObserver = new MutationObserver(pageMutation);
@@ -74,18 +121,25 @@ const NerdeRegion = (function () {
 			if(element.nerderegion === undefined) {
 				element.nerderegion = true;
 				element.dataset.nerderegion = 'init';
-				console.log(element.textContent);
 			}
 		});
 		document.querySelectorAll('[data-nerderegion=init]').forEach((element) => {
+			watchList.push(element);
 			element.dataset.nerderegion = 'track';
+			element.dataset.nerderegionid = watchList.length.toString();
 			regionObserver.observe(element, {attributes:true, subtree:true, childList: true, characterData:true});
+		});
+	};
 
+	const dumpRegions = () => {
+		watchList.forEach((node)=>{
+			console.log(node.dataset.nerderegionid + ') ' + getPath(node) + ' | ' + node.textContent);
 		});
 	};
 
 	const initialize = () => {
 		findRegions();
+		dumpRegions();
 		pageObserver.observe(document.body, {attributeFilter:['role', 'aria-live'], subtree:true, childList: true});
 	};
 
