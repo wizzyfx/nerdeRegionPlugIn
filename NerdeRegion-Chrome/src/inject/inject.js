@@ -34,7 +34,9 @@ const NerdeRegion = (function () {
 				break;
 			}
 			let className = '';
-			let classList = realNode.className.split(/\s+/);
+			let nodeClass = realNode.getAttribute('class');
+			if(!nodeClass) {nodeClass = '';}
+			let classList = nodeClass.split(/\s+/);
 			for (let i = 0; i < classList.length; i++) {
 				if (/^[\da-zA-Z_-]/.test(classList[i]) && commonNames.findIndex(function (str) {return classList[i].indexOf(str) !== -1;}) === -1 && document.querySelectorAll('.' + classList[i]).length === 1) {
 					className = '.' + classList[i];
@@ -105,6 +107,7 @@ const NerdeRegion = (function () {
 		for(let mutation of mutationsList) {
 			if(checkRegion(mutation) || checkRole(mutation)) {
 				findRegions();
+				dumpRegions();
 			}
 		}
 	};
@@ -132,8 +135,12 @@ const NerdeRegion = (function () {
 	};
 
 	const dumpRegions = () => {
-		watchList.forEach((node)=>{
-			console.log(node.dataset.nerderegionid + ') ' + getPath(node) + ' | ' + node.textContent);
+		watchList.forEach((node, i)=>{
+			if(node.isConnected) {
+				console.log(node.dataset.nerderegionid + ') ' + getPath(node) + ' | ' + node.textContent);
+			} else {
+				delete watchList[i];
+			}
 		});
 	};
 
