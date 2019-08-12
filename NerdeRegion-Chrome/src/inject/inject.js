@@ -6,6 +6,7 @@
 
 const NerdeRegion = (function () {
 	let watchList = [];
+
 	const regions = [
 		'[aria-live="polite"]',
 		'[aria-live="assertive"]',
@@ -35,7 +36,7 @@ const NerdeRegion = (function () {
 			}
 			let className = '';
 			let nodeClass = realNode.getAttribute('class');
-			if(!nodeClass) {nodeClass = '';}
+			if (!nodeClass) {nodeClass = '';}
 			let classList = nodeClass.split(/\s+/);
 			for (let i = 0; i < classList.length; i++) {
 				if (/^[\da-zA-Z_-]/.test(classList[i]) && commonNames.findIndex(function (str) {return classList[i].indexOf(str) !== -1;}) === -1 && document.querySelectorAll('.' + classList[i]).length === 1) {
