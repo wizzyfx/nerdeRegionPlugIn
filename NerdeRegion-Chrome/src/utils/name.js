@@ -54,6 +54,12 @@ const getAccessibleName = function (node) {
 		return false;
 	};
 
+	const getLabelParentNode = function (node) {
+		const labelNode = node.closest('label');
+		if (labelNode) {return labelNode;}
+		return false;
+	};
+
 	const getAriaLabel = function (node) {
 		if(node.matches('[aria-label]')) {
 			const nodeLabel = node.getAttribute('aria-label').trim();
@@ -109,7 +115,6 @@ const getAccessibleName = function (node) {
 		// D) f the current node's native markup provides an attribute (e.g. title) or element (e.g. HTML label)
 		// that defines a text alternative, return that alternative in the form of a flat string as defined by the
 		// host language, unless the element is marked as presentational (role="presentation" or role="none").
-
 		if(!currentNode.matches('[role=none],[role=presentation]')) {
 			if(isLabelable(currentNode)) {
 				const labelNode = getLabelNode(currentNode);
@@ -140,8 +145,15 @@ const getAccessibleName = function (node) {
 		// directly referenced by aria-labelledby) for another widget, where the user can adjust the embedded control's
 		// value, then include the embedded control
 
+		if(isLabelable(currentNode)) {
+			const labelNode = getLabelParentNode(currentNode);
+			if (labelNode) {
+				return calculateName(labelNode);
+			}
+		}
 
-		return currentNode.textContent;
+
+		return currentNode.textContent.trim();
 	};
 
 	return calculateName(node);

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .accname-test{
+        .accname-test {
             padding: 10px;
             border: 1px solid gray;
             margin: 20px 0px 80px 0px;
-            background: rgba(255,18,7,0.14);
+            background: rgba(255, 18, 7, 0.14);
         }
-        .accname-test.pass{
+
+        .accname-test.pass {
             background: rgba(22, 255, 84, 0.14);
         }
     </style>
@@ -102,7 +103,9 @@
 
 <div id="wrapper__12">
     <style>
-        #wrapper__12 label:before { content:"fancy "; }
+        #wrapper__12 label:before {
+            content: "fancy ";
+        }
     </style>
     <label for="test__12">fruit</label>
     <input type="text" id="test__12"/>
@@ -111,7 +114,9 @@
 
 <div id="wrapper__13">
     <style type="text/css">
-        #wrapper__13 [data-after]:after { content: attr(data-after); }
+        #wrapper__13 [data-after]:after {
+            content: attr(data-after);
+        }
     </style>
     <label for="test__13" data-after="test content"></label>
     <input type="text" id="test__13">
@@ -156,7 +161,8 @@
     <input type="text" value="apple jacks" id="ID3__20">
     <img aria-labelledby="ID1__20 ID2__20 ID3__20" id="test__20" src="foo.jpg"/>
 </div>
-<div class="accname-test" data-test="test__20" data-name="peanuts popcorn apple jacks" data-comment="Name test case 562"></div>
+<div class="accname-test" data-test="test__20" data-name="peanuts popcorn apple jacks"
+     data-comment="Name test case 562"></div>
 
 <div id="wrapper__21">
     <input type="text" value="peanuts" id="ID1__21">
@@ -175,9 +181,11 @@
     <input type="text" value="peanuts" id="ID1__23">
     <input type="text" value="popcorn" id="ID2__23">
     <input type="text" value="apple jacks" id="ID3__23">
-    <img id="test__23" aria-label="l" aria-labelledby="test__23 ID1__23 ID2__23 ID3__23" alt= "a" title="t" src="foo.jpg"/>
+    <img id="test__23" aria-label="l" aria-labelledby="test__23 ID1__23 ID2__23 ID3__23" alt="a" title="t"
+         src="foo.jpg"/>
 </div>
-<div class="accname-test" data-test="test__23" data-name="l peanuts popcorn apple jacks" data-comment="Name test case 565"></div>
+<div class="accname-test" data-test="test__23" data-name="l peanuts popcorn apple jacks"
+     data-comment="Name test case 565"></div>
 
 <div id="wrapper__24">
     <input type="text" value="peanuts" id="ID1__24">
@@ -185,7 +193,8 @@
     <input type="text" value="apple jacks" id="ID3__24">
     <img id="test__24" aria-label="" aria-labelledby="test__24 ID1__24 ID2__24 ID3__24" alt="" title="t" src="foo.jpg"/>
 </div>
-<div class="accname-test" data-test="test__24" data-name="t peanuts popcorn apple jacks" data-comment="Name test case 566"></div>
+<div class="accname-test" data-test="test__24" data-name="t peanuts popcorn apple jacks"
+     data-comment="Name test case 566"></div>
 
 <div id="wrapper__25">
     <div id="test__25" aria-labelledby="ID1__25">foo</div>
@@ -270,26 +279,26 @@
 
 <div id="wrapper__39">
     <input id="test__39" type="text" aria-label="bar" aria-labelledby="ID1__39 test__39">
-    <div id="ID1__39">foo</label>
-    </div>
-    <div class="accname-test" data-test="test__39" data-name="foo bar" data-comment="Name test case 610"></div>
+    <label id="ID1__39">foo</label>
+</div>
+<div class="accname-test" data-test="test__39" data-name="foo bar" data-comment="Name test case 610"></div>
 
-    <div id="wrapper__40">
-        <input id="test__40" type="text"/>
-        <label for="test__40">foo</label>
-    </div>
-    <div class="accname-test" data-test="test__40" data-name="foo" data-comment="Name test case 611"></div>
+<div id="wrapper__40">
+    <input id="test__40" type="text"/>
+    <label for="test__40">foo</label>
+</div>
+<div class="accname-test" data-test="test__40" data-name="foo" data-comment="Name test case 611"></div>
 
-    <div id="wrapper__41">
-        <input type="password" id="test__41">
-        <label for="test__41">foo</label>
-    </div>
-    <div class="accname-test" data-test="test__41" data-name="foo" data-comment="Name test case 612"></div>
+<div id="wrapper__41">
+    <input type="password" id="test__41">
+    <label for="test__41">foo</label>
+</div>
+<div class="accname-test" data-test="test__41" data-name="foo" data-comment="Name test case 612"></div>
 
-    <div id="wrapper__42">
-        <input type="checkbox" id="test__42">
-        <label for="test__42">foo</label>
-   </div>
+<div id="wrapper__42">
+    <input type="checkbox" id="test__42">
+    <label for="test__42">foo</label>
+</div>
 <div class="accname-test" data-test="test__42" data-name="foo" data-comment="Name test case 613"></div>
 
 <div id="wrapper__43">
@@ -342,8 +351,13 @@
 
 <div id="wrapper__51">
     <style type="text/css">
-        #wrapper__51 label:before { content: "foo"; }
-        #wrapper__51 label:after { content: "baz"; }
+        #wrapper__51 label:before {
+            content: "foo";
+        }
+
+        #wrapper__51 label:after {
+            content: "baz";
+        }
     </style>
     <form>
         <label for="test__51" title="bar"><input id="test__51" type="text" name="test" title="buz"></label>
@@ -353,8 +367,13 @@
 
 <div id="wrapper__52">
     <style type="text/css">
-        #wrapper__52 label:before { content: "foo"; }
-        #wrapper__52 label:after { content: "baz"; }
+        #wrapper__52 label:before {
+            content: "foo";
+        }
+
+        #wrapper__52 label:after {
+            content: "baz";
+        }
     </style>
     <form>
         <label for="test__52" title="bar"><input id="test__52" type="password" name="test" title="buz"></label>
@@ -364,8 +383,13 @@
 
 <div id="wrapper__53">
     <style type="text/css">
-        #wrapper__53 label:before { content: "foo"; }
-        #wrapper__53 label:after { content: "baz"; }
+        #wrapper__53 label:before {
+            content: "foo";
+        }
+
+        #wrapper__53 label:after {
+            content: "baz";
+        }
     </style>
     <form>
         <label for="test__53"><input id="test__53" type="checkbox" name="test" title=" bar "></label>
@@ -375,8 +399,13 @@
 
 <div id="wrapper__54">
     <style type="text/css">
-        #wrapper__54 label:before { content: "foo"; }
-        #wrapper__54 label:after { content: "baz"; }
+        #wrapper__54 label:before {
+            content: "foo";
+        }
+
+        #wrapper__54 label:after {
+            content: "baz";
+        }
     </style>
     <form>
         <label for="test__54"><input id="test__54" type="radio" name="test" title=" bar "></label>
@@ -386,8 +415,13 @@
 
 <div id="wrapper__55">
     <style type="text/css">
-        #wrapper__55 label:before { content: "foo"; }
-        #wrapper__55 label:after { content: "baz"; }
+        #wrapper__55 label:before {
+            content: "foo";
+        }
+
+        #wrapper__55 label:after {
+            content: "baz";
+        }
     </style>
     <form>
         <label for="test__55"><input id="test__55" type="file" name="test" title="bar"></label>
@@ -397,8 +431,13 @@
 
 <div id="wrapper__56">
     <style type="text/css">
-        #wrapper__56 label:before { content: "foo"; }
-        #wrapper__56 label:after { content: "baz"; }
+        #wrapper__56 label:before {
+            content: "foo";
+        }
+
+        #wrapper__56 label:after {
+            content: "baz";
+        }
     </style>
     <form>
         <label for="test__56"><input id="test__56" type="image" src="foo.jpg" name="test" title="bar"></label>
@@ -668,7 +707,9 @@
 
 <div id="wrapper__87">
     <style>
-        #wrapper__87 label:before { content:"fancy "; }
+        #wrapper__87 label:before {
+            content: "fancy ";
+        }
     </style>
     <label for="test__87">fruit</label>
     <input type="password" id="test__87"/>
@@ -677,7 +718,9 @@
 
 <div id="wrapper__88">
     <style>
-        #wrapper__88 label:before { content:"fancy "; }
+        #wrapper__88 label:before {
+            content: "fancy ";
+        }
     </style>
     <label for="test__88">fruit</label>
     <input type="checkbox" id="test__88"/>
@@ -686,7 +729,9 @@
 
 <div id="wrapper__89">
     <style>
-        #wrapper__89 label:before { content:"fancy "; }
+        #wrapper__89 label:before {
+            content: "fancy ";
+        }
     </style>
     <label for="test__89">fruit</label>
     <input type="radio" id="test__89"/>
@@ -695,7 +740,9 @@
 
 <div id="wrapper__90">
     <style>
-        #wrapper__90 label:before { content:"fancy "; }
+        #wrapper__90 label:before {
+            content: "fancy ";
+        }
     </style>
     <label for="test__90">fruit</label>
     <input type="file" id="test__90"/>
@@ -704,7 +751,9 @@
 
 <div id="wrapper__91">
     <style>
-        #wrapper__91 label:before { content:"fancy "; }
+        #wrapper__91 label:before {
+            content: "fancy ";
+        }
     </style>
     <label for="test__91">fruit</label>
     <input type="image" src="foo.jpg" id="test__91"/>
@@ -713,7 +762,9 @@
 
 <div id="wrapper__92">
     <style>
-        #wrapper__92 label:after { content:" fruit"; }
+        #wrapper__92 label:after {
+            content: " fruit";
+        }
     </style>
     <label for="test__92">fancy</label>
     <input type="password" id="test__92"/>
@@ -722,7 +773,9 @@
 
 <div id="wrapper__93">
     <style>
-        #wrapper__93 label:after { content:" fruit"; }
+        #wrapper__93 label:after {
+            content: " fruit";
+        }
     </style>
     <label for="test__93">fancy</label>
     <input type="checkbox" id="test__93"/>
@@ -731,7 +784,9 @@
 
 <div id="wrapper__94">
     <style>
-        #wrapper__94 label:after { content:" fruit"; }
+        #wrapper__94 label:after {
+            content: " fruit";
+        }
     </style>
     <label for="test__94">fancy</label>
     <input type="radio" id="test__94"/>
@@ -740,7 +795,9 @@
 
 <div id="wrapper__95">
     <style>
-        #wrapper__95 label:after { content:" fruit"; }
+        #wrapper__95 label:after {
+            content: " fruit";
+        }
     </style>
     <label for="test__95">fancy</label>
     <input type="file" id="test__95"/>
@@ -749,7 +806,9 @@
 
 <div id="wrapper__96">
     <style>
-        #wrapper__96 label:after { content:" fruit"; }
+        #wrapper__96 label:after {
+            content: " fruit";
+        }
     </style>
     <label for="test__96">fancy</label>
     <input type="image" src="foo.jpg" id="test__96"/>
@@ -757,7 +816,7 @@
 <div class="accname-test" data-test="test__96" data-name="fancy fruit" data-comment="Name test case 762"></div>
 
 <div id="wrapper__97">
-    <input type="checkbox" id="test__97" />
+    <input type="checkbox" id="test__97"/>
     <label for="test__97">Flash the screen
         <div role="combobox">
             <div role="textbox"></div>
@@ -770,10 +829,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__97" data-name="Flash the screen 1 times." data-comment="Name checkbox-label-embedded-combobox"></div>
+<div class="accname-test" data-test="test__97" data-name="Flash the screen 1 times."
+     data-comment="Name checkbox-label-embedded-combobox"></div>
 
 <div id="wrapper__98">
-    <input type="checkbox" id="test__98" />
+    <input type="checkbox" id="test__98"/>
     <label for="test__98">Flash the screen
         <span role="menu">
       <span role="menuitem" aria-selected="true">1</span>
@@ -783,10 +843,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__98" data-name="Flash the screen times." data-comment="Name checkbox-label-embedded-menu"></div>
+<div class="accname-test" data-test="test__98" data-name="Flash the screen times."
+     data-comment="Name checkbox-label-embedded-menu"></div>
 
 <div id="wrapper__99">
-    <input type="checkbox" id="test__99" />
+    <input type="checkbox" id="test__99"/>
     <label for="test__99">Flash the screen
         <select size="1">
             <option selected="selected">1</option>
@@ -796,45 +857,51 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__99" data-name="Flash the screen 1 times." data-comment="Name checkbox-label-embedded-select"></div>
+<div class="accname-test" data-test="test__99" data-name="Flash the screen 1 times."
+     data-comment="Name checkbox-label-embedded-select"></div>
 
 <div id="wrapper__100">
-    <input type="checkbox" id="test__100" />
-    <label for="test__100">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="checkbox" id="test__100"/>
+    <label for="test__100">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__100" data-name="foo 5 baz" data-comment="Name checkbox-label-embedded-slider"></div>
+<div class="accname-test" data-test="test__100" data-name="foo 5 baz"
+     data-comment="Name checkbox-label-embedded-slider"></div>
 
 <div id="wrapper__101">
-    <input type="checkbox" id="test__101" />
-    <label for="test__101">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="checkbox" id="test__101"/>
+    <label for="test__101">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__101" data-name="foo 5 baz" data-comment="Name checkbox-label-embedded-spinbutton"></div>
+<div class="accname-test" data-test="test__101" data-name="foo 5 baz"
+     data-comment="Name checkbox-label-embedded-spinbutton"></div>
 
 <div id="wrapper__102">
-    <input type="checkbox" id="test__102" title="foo" />
+    <input type="checkbox" id="test__102" title="foo"/>
 </div>
 <div class="accname-test" data-test="test__102" data-name="foo" data-comment="Name checkbox-title"></div>
 
 <div id="wrapper__103">
-    <input type="file" id="test__103" />
+    <input type="file" id="test__103"/>
     <label for="test__103">Flash the screen
         <div role="combobox">
             <div role="textbox"></div>
             <ul role="listbox" style="list-style-type: none;">
-                <li role="option" aria-selected="true">1 </li>
-                <li role="option">2 </li>
-                <li role="option">3 </li>
+                <li role="option" aria-selected="true">1</li>
+                <li role="option">2</li>
+                <li role="option">3</li>
             </ul>
         </div>
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__103" data-name="Flash the screen 1 times." data-comment="Name file-label-embedded-combobox"></div>
+<div class="accname-test" data-test="test__103" data-name="Flash the screen 1 times."
+     data-comment="Name file-label-embedded-combobox"></div>
 
 <div id="wrapper__104">
-    <input type="file" id="test__104" />
+    <input type="file" id="test__104"/>
     <label for="test__104">Flash the screen
         <span role="menu">
       <span role="menuitem" aria-selected="true">1</span>
@@ -844,10 +911,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__104" data-name="Flash the screen times." data-comment="Name file-label-embedded-menu"></div>
+<div class="accname-test" data-test="test__104" data-name="Flash the screen times."
+     data-comment="Name file-label-embedded-menu"></div>
 
 <div id="wrapper__105">
-    <input type="file" id="test__105" />
+    <input type="file" id="test__105"/>
     <label for="test__105">Flash the screen
         <select size="1">
             <option selected="selected">1</option>
@@ -857,34 +925,39 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__105" data-name="Flash the screen 1 times." data-comment="Name file-label-embedded-select"></div>
+<div class="accname-test" data-test="test__105" data-name="Flash the screen 1 times."
+     data-comment="Name file-label-embedded-select"></div>
 
 <div id="wrapper__106">
-    <input type="file" id="test__106" />
-    <label for="test__106">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="file" id="test__106"/>
+    <label for="test__106">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__106" data-name="foo 5 baz" data-comment="Name file-label-embedded-slider"></div>
+<div class="accname-test" data-test="test__106" data-name="foo 5 baz"
+     data-comment="Name file-label-embedded-slider"></div>
 
 <div id="wrapper__107">
-    <input type="file" id="test__107" />
-    <label for="test__107">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="file" id="test__107"/>
+    <label for="test__107">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__107" data-name="foo 5 baz" data-comment="Name file-label-embedded-spinbutton"></div>
+<div class="accname-test" data-test="test__107" data-name="foo 5 baz"
+     data-comment="Name file-label-embedded-spinbutton"></div>
 
 <div id="wrapper__108">
-    <input type="file" id="test__108" title="foo" />
+    <input type="file" id="test__108" title="foo"/>
 </div>
 <div class="accname-test" data-test="test__108" data-name="foo" data-comment="Name file-title"></div>
 
 <div id="wrapper__109">
-    <input type="image" src="test.png" id="test__109" title="foo" />
+    <input type="image" src="test.png" id="test__109" title="foo"/>
 </div>
 <div class="accname-test" data-test="test__109" data-name="foo" data-comment="Name image-title"></div>
 
 <div id="wrapper__110">
-    <input type="password" id="test__110" />
+    <input type="password" id="test__110"/>
     <label for="test__110">Flash the screen
         <div role="combobox">
             <div role="textbox"></div>
@@ -897,10 +970,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__110" data-name="Flash the screen 1 times." data-comment="Name password-label-embedded-combobox"></div>
+<div class="accname-test" data-test="test__110" data-name="Flash the screen 1 times."
+     data-comment="Name password-label-embedded-combobox"></div>
 
 <div id="wrapper__111">
-    <input type="password" id="test__111" />
+    <input type="password" id="test__111"/>
     <label for="test__111">Flash the screen
         <span role="menu">
       <span role="menuitem" aria-selected="true">1</span>
@@ -910,10 +984,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__111" data-name="Flash the screen times." data-comment="Name password-label-embedded-menu"></div>
+<div class="accname-test" data-test="test__111" data-name="Flash the screen times."
+     data-comment="Name password-label-embedded-menu"></div>
 
 <div id="wrapper__112">
-    <input type="password" id="test__112" />
+    <input type="password" id="test__112"/>
     <label for="test__112">Flash the screen
         <select size="1">
             <option selected="selected">1</option>
@@ -923,29 +998,34 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__112" data-name="Flash the screen 1 times." data-comment="Name password-label-embedded-select"></div>
+<div class="accname-test" data-test="test__112" data-name="Flash the screen 1 times."
+     data-comment="Name password-label-embedded-select"></div>
 
 <div id="wrapper__113">
-    <input type="password" id="test__113" />
-    <label for="test__113">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="password" id="test__113"/>
+    <label for="test__113">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__113" data-name="foo 5 baz" data-comment="Name password-label-embedded-slider"></div>
+<div class="accname-test" data-test="test__113" data-name="foo 5 baz"
+     data-comment="Name password-label-embedded-slider"></div>
 
 <div id="wrapper__114">
-    <input type="password" id="test__114" />
-    <label for="test__114">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="password" id="test__114"/>
+    <label for="test__114">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__114" data-name="foo 5 baz" data-comment="Name password-label-embedded-spinbutton"></div>
+<div class="accname-test" data-test="test__114" data-name="foo 5 baz"
+     data-comment="Name password-label-embedded-spinbutton"></div>
 
 <div id="wrapper__115">
-    <input type="password" id="test__115" title="foo" />
+    <input type="password" id="test__115" title="foo"/>
 </div>
 <div class="accname-test" data-test="test__115" data-name="foo" data-comment="Name password-title"></div>
 
 <div id="wrapper__116">
-    <input type="radio" id="test__116" />
+    <input type="radio" id="test__116"/>
     <label for="test__116">Flash the screen
         <div role="combobox">
             <div role="textbox"></div>
@@ -958,10 +1038,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__116" data-name="Flash the screen 1 times." data-comment="Name radio-label-embedded-combobox"></div>
+<div class="accname-test" data-test="test__116" data-name="Flash the screen 1 times."
+     data-comment="Name radio-label-embedded-combobox"></div>
 
 <div id="wrapper__117">
-    <input type="radio" id="test__117" />
+    <input type="radio" id="test__117"/>
     <label for="test__117">Flash the screen
         <span role="menu">
       <span role="menuitem" aria-selected="true">1</span>
@@ -971,10 +1052,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__117" data-name="Flash the screen times." data-comment="Name radio-label-embedded-menu"></div>
+<div class="accname-test" data-test="test__117" data-name="Flash the screen times."
+     data-comment="Name radio-label-embedded-menu"></div>
 
 <div id="wrapper__118">
-    <input type="radio" id="test__118" />
+    <input type="radio" id="test__118"/>
     <label for="test__118">Flash the screen
         <select size="1">
             <option selected="selected">1</option>
@@ -984,29 +1066,34 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__118" data-name="Flash the screen 1 times." data-comment="Name radio-label-embedded-select"></div>
+<div class="accname-test" data-test="test__118" data-name="Flash the screen 1 times."
+     data-comment="Name radio-label-embedded-select"></div>
 
 <div id="wrapper__119">
-    <input type="radio" id="test__119" />
-    <label for="test__119">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="radio" id="test__119"/>
+    <label for="test__119">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__119" data-name="foo 5 baz" data-comment="Name radio-label-embedded-slider"></div>
+<div class="accname-test" data-test="test__119" data-name="foo 5 baz"
+     data-comment="Name radio-label-embedded-slider"></div>
 
 <div id="wrapper__120">
-    <input type="radio" id="test__120" />
-    <label for="test__120">foo <input role="spinbutton"  type="number" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="radio" id="test__120"/>
+    <label for="test__120">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__120" data-name="foo 5 baz" data-comment="Name radio-label-embedded-spinbutton"></div>
+<div class="accname-test" data-test="test__120" data-name="foo 5 baz"
+     data-comment="Name radio-label-embedded-spinbutton"></div>
 
 <div id="wrapper__121">
-    <input type="radio" id="test__121" title="foo" />
+    <input type="radio" id="test__121" title="foo"/>
 </div>
 <div class="accname-test" data-test="test__121" data-name="foo" data-comment="Name radio-title"></div>
 
 <div id="wrapper__122">
-    <input type="text" id="test__122" />
+    <input type="text" id="test__122"/>
     <label for="test__122">Flash the screen
         <div role="combobox">
             <div role="textbox"></div>
@@ -1019,10 +1106,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__122" data-name="Flash the screen 1 times." data-comment="Name text-label-embedded-combobox"></div>
+<div class="accname-test" data-test="test__122" data-name="Flash the screen 1 times."
+     data-comment="Name text-label-embedded-combobox"></div>
 
 <div id="wrapper__123">
-    <input type="text" id="test__123" />
+    <input type="text" id="test__123"/>
     <label for="test__123">Flash the screen
         <span role="menu">
       <span role="menuitem" aria-selected="true">1</span>
@@ -1032,10 +1120,11 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__123" data-name="Flash the screen times." data-comment="Name text-label-embedded-menu"></div>
+<div class="accname-test" data-test="test__123" data-name="Flash the screen times."
+     data-comment="Name text-label-embedded-menu"></div>
 
 <div id="wrapper__124">
-    <input type="text" id="test__124" />
+    <input type="text" id="test__124"/>
     <label for="test__124">Flash the screen
         <select size="1">
             <option selected="selected">1</option>
@@ -1045,24 +1134,29 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__124" data-name="Flash the screen 1 times." data-comment="Name text-label-embedded-select"></div>
+<div class="accname-test" data-test="test__124" data-name="Flash the screen 1 times."
+     data-comment="Name text-label-embedded-select"></div>
 
 <div id="wrapper__125">
-    <input type="text" id="test__125" />
-    <label for="test__125">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="text" id="test__125"/>
+    <label for="test__125">foo <input role="slider" type="range" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__125" data-name="foo 5 baz" data-comment="Name text-label-embedded-slider"></div>
+<div class="accname-test" data-test="test__125" data-name="foo 5 baz"
+     data-comment="Name text-label-embedded-slider"></div>
 
 <div id="wrapper__126">
-    <input type="text" id="test__126" />
-    <label for="test__126">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10"> baz
+    <input type="text" id="test__126"/>
+    <label for="test__126">foo <input role="spinbutton" type="number" value="5" min="1" max="10" aria-valuenow="5"
+                                      aria-valuemin="1" aria-valuemax="10"> baz
     </label>
 </div>
-<div class="accname-test" data-test="test__126" data-name="foo 5 baz" data-comment="Name text-label-embedded-spinbutton"></div>
+<div class="accname-test" data-test="test__126" data-name="foo 5 baz"
+     data-comment="Name text-label-embedded-spinbutton"></div>
 
 <div id="wrapper__127">
-    <input type="text" id="test__127" title="foo" />
+    <input type="text" id="test__127" title="foo"/>
 </div>
 <div class="accname-test" data-test="test__127" data-name="foo" data-comment="Name text-title"></div>
 
@@ -1122,22 +1216,26 @@
 <div id="wrapper__136">
     <img src="foo.jpg" id="test__136" alt="test" aria-describedby="t1__136">
 </div>
-<div class="accname-test" data-test="test__136" data-description="" data-comment="Description test case broken reference"></div>
+<div class="accname-test" data-test="test__136" data-description=""
+     data-comment="Description test case broken reference"></div>
 
 <div id="wrapper__137">
     <img src="foo.jpg" id="test__137" alt="test" aria-describedby="t1__137 t2__137 t3__137">
     <div id="t2__137">foo</div>
 </div>
-<div class="accname-test" data-test="test__137" data-description="foo" data-comment="Description test case one valid reference"></div>
+<div class="accname-test" data-test="test__137" data-description="foo"
+     data-comment="Description test case one valid reference"></div>
 
 <div id="wrapper__138">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
     <div id="test__138" role="link" tabindex="0">
         <span aria-hidden="true"><i> Hello, </i></span>
         <span>My</span> name is
-        <div><img src="file.jpg" title="Bryan" alt="" role="presentation" /></div>
+        <div><img src="file.jpg" title="Bryan" alt="" role="presentation"/></div>
         <span role="presentation" aria-label="Eli">
       <span aria-label="Garaventa">Zambino</span>
     </span>
@@ -1147,24 +1245,31 @@
         <table>
             <tr>
                 <td>Where</td>
-                <td style="visibility:hidden;"><div>in</div></td>
-                <td><div style="display:none;">the world</div></td>
+                <td style="visibility:hidden;">
+                    <div>in</div>
+                </td>
+                <td>
+                    <div style="display:none;">the world</div>
+                </td>
                 <td>are my marbles?</td>
             </tr>
         </table>
     </div>
 </div>
-<div class="accname-test" data-test="test__138" data-name="My name is Eli the weird. (QED) Where are my marbles?" data-comment="Name from content"></div>
+<div class="accname-test" data-test="test__138" data-name="My name is Eli the weird. (QED) Where are my marbles?"
+     data-comment="Name from content"></div>
 
 <div id="wrapper__139">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
-    <input id="test__139" type="text" aria-labelledby="lblId__139" />
-    <div id="lblId__139" >
+    <input id="test__139" type="text" aria-labelledby="lblId__139"/>
+    <div id="lblId__139">
         <span aria-hidden="true"><i> Hello, </i></span>
         <span>My</span> name is
-        <div><img src="file.jpg" title="Bryan" alt="" role="presentation" /></div>
+        <div><img src="file.jpg" title="Bryan" alt="" role="presentation"/></div>
         <span role="presentation" aria-label="Eli">
       <span aria-label="Garaventa">Zambino</span>
     </span>
@@ -1174,24 +1279,31 @@
         <table>
             <tr>
                 <td>Where</td>
-                <td style="visibility:hidden;"><div>in</div></td>
-                <td><div style="display:none;">the world</div></td>
+                <td style="visibility:hidden;">
+                    <div>in</div>
+                </td>
+                <td>
+                    <div style="display:none;">the world</div>
+                </td>
                 <td>are my marbles?</td>
             </tr>
         </table>
     </div>
 </div>
-<div class="accname-test" data-test="test__139" data-name="My name is Eli the weird. (QED) Where are my marbles?" data-comment="Name from content of labelledby element"></div>
+<div class="accname-test" data-test="test__139" data-name="My name is Eli the weird. (QED) Where are my marbles?"
+     data-comment="Name from content of labelledby element"></div>
 
 <div id="wrapper__140">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
-    <input type="text" id="test__140" />
+    <input type="text" id="test__140"/>
     <label for="test__140" id="label__140">
         <span aria-hidden="true"><i> Hello, </i></span>
         <span>My</span> name is
-        <div><img src="file.jpg" title="Bryan" alt="" role="presentation" /></div>
+        <div><img src="file.jpg" title="Bryan" alt="" role="presentation"/></div>
         <span role="presentation" aria-label="Eli">
       <span aria-label="Garaventa">Zambino</span>
    </span>
@@ -1201,25 +1313,32 @@
         <table>
             <tr>
                 <td>Where</td>
-                <td style="visibility:hidden;"><div>in</div></td>
-                <td><div style="display:none;">the world</div></td>
+                <td style="visibility:hidden;">
+                    <div>in</div>
+                </td>
+                <td>
+                    <div style="display:none;">the world</div>
+                </td>
                 <td>are my marbles?</td>
             </tr>
         </table>
     </label>
 </div>
-<div class="accname-test" data-test="test__140" data-name="My name is Eli the weird. (QED) Where are my marbles?" data-comment="Name from content of label"></div>
+<div class="accname-test" data-test="test__140" data-name="My name is Eli the weird. (QED) Where are my marbles?"
+     data-comment="Name from content of label"></div>
 
 <div id="wrapper__141">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
-    <input id="test__141" type="text" aria-label="Important stuff" aria-describedby="descId__141" />
+    <input id="test__141" type="text" aria-label="Important stuff" aria-describedby="descId__141"/>
     <div>
         <div id="descId__141">
             <span aria-hidden="true"><i> Hello, </i></span>
             <span>My</span> name is
-            <div><img src="file.jpg" title="Bryan" alt="" role="presentation" /></div>
+            <div><img src="file.jpg" title="Bryan" alt="" role="presentation"/></div>
             <span role="presentation" aria-label="Eli">
         <span aria-label="Garaventa">Zambino</span>
       </span>
@@ -1229,37 +1348,45 @@
             <table>
                 <tr>
                     <td>Where</td>
-                    <td style="visibility:hidden;"><div>in</div></td>
-                    <td><div style="display:none;">the world</div></td>
+                    <td style="visibility:hidden;">
+                        <div>in</div>
+                    </td>
+                    <td>
+                        <div style="display:none;">the world</div>
+                    </td>
                     <td>are my marbles?</td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
-<div class="accname-test" data-test="test__141" data-description="My name is Eli the weird. (QED) Where are my marbles?" data-comment="Description from content of describedby element"></div>
+<div class="accname-test" data-test="test__141" data-description="My name is Eli the weird. (QED) Where are my marbles?"
+     data-comment="Description from content of describedby element"></div>
 
 <div id="wrapper__143">
     <input id="test__143" role="combobox" type="text" title="Choose your language" value="English">
 </div>
-<div class="accname-test" data-test="test__143" data-name="Choose your language" data-comment="Name 1.0 combobox-focusable-alternative"></div>
+<div class="accname-test" data-test="test__143" data-name="Choose your language"
+     data-comment="Name 1.0 combobox-focusable-alternative"></div>
 
 <div id="wrapper__144">
     <div id="test__144" role="combobox" tabindex="0" title="Choose your language.">
         <span> English </span>
     </div>
 </div>
-<div class="accname-test" data-test="test__144" data-name="Choose your language." data-comment="Name 1.0 combobox-focusable"></div>
+<div class="accname-test" data-test="test__144" data-name="Choose your language."
+     data-comment="Name 1.0 combobox-focusable"></div>
 
 <div id="wrapper__145">
     <div id="test__145" role="combobox" tabindex="0" title="Choose your language.">
         <span> English </span>
     </div>
 </div>
-<div class="accname-test" data-test="test__145" data-description="" data-comment="Description 1.0 combobox-focusable"></div>
+<div class="accname-test" data-test="test__145" data-description=""
+     data-comment="Description 1.0 combobox-focusable"></div>
 
 <div id="wrapper__146">
-    <input type="checkbox" id="test__146" />
+    <input type="checkbox" id="test__146"/>
     <label for="test__146">Flash the screen
         <ul role="listbox" style="list-style-type: none;">
             <li role="option" aria-selected="true">1</li>
@@ -1269,50 +1396,68 @@
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__146" data-name="Flash the screen 1 times." data-comment="Name checkbox-label-embedded-listbox"></div>
+<div class="accname-test" data-test="test__146" data-name="Flash the screen 1 times."
+     data-comment="Name checkbox-label-embedded-listbox"></div>
 
 <div id="wrapper__147">
-    <input type="checkbox" id="test__147" />
+    <input type="checkbox" id="test__147"/>
     <label for="test__147">Flash the screen
         <div role="textbox" contenteditable>1</div>
         times.
     </label>
 </div>
-<div class="accname-test" data-test="test__147" data-name="Flash the screen 1 times." data-comment="Name checkbox-label-embedded-textbox"></div>
+<div class="accname-test" data-test="test__147" data-name="Flash the screen 1 times."
+     data-comment="Name checkbox-label-embedded-textbox"></div>
 
 <div id="wrapper__148">
     <label for="test__148">a test</label>
-    <label>This <input type="checkbox" id="test__148" /> is</label>
+    <label>This <input type="checkbox" id="test__148"/> is</label>
 </div>
-<div class="accname-test" data-test="test__148" data-name="a test This is" data-comment="Name checkbox-label-multiple-label-alternative"></div>
+<div class="accname-test" data-test="test__148" data-name="a test This is"
+     data-comment="Name checkbox-label-multiple-label-alternative"></div>
 
 <div id="wrapper__149">
-    <label>This <input type="checkbox" id="test__149" /> is</label>
+    <label>This <input type="checkbox" id="test__149"/> is</label>
     <label for="test__149">a test</label>
 </div>
-<div class="accname-test" data-test="test__149" data-name="This is a test" data-comment="Name checkbox-label-multiple-label"></div>
+<div class="accname-test" data-test="test__149" data-name="This is a test"
+     data-comment="Name checkbox-label-multiple-label"></div>
 
 <div id="wrapper__150">
-    <input type="file" id="test__150" />
-    <label for="test__150">W<i>h<b>a</b></i>t<br>is<div>your<div>name<b>?</b></div></div></label>
+    <input type="file" id="test__150"/>
+    <label for="test__150">W<i>h<b>a</b></i>t<br>is
+        <div>your
+            <div>name<b>?</b></div>
+        </div>
+    </label>
 </div>
-<div class="accname-test" data-test="test__150" data-name="What is your name?" data-comment="Name file-label-inline-block-elements"></div>
+<div class="accname-test" data-test="test__150" data-name="What is your name?"
+     data-comment="Name file-label-inline-block-elements"></div>
 
 <div id="wrapper__151">
     <style>
-        #wrapper__151 label:before { content: "This"; display: block; }
-        #wrapper__151 label:after { content: "."; }
+        #wrapper__151 label:before {
+            content: "This";
+            display: block;
+        }
+
+        #wrapper__151 label:after {
+            content: ".";
+        }
     </style>
     <label for="test__151">is a test</label>
     <input type="text" id="test__151"/>
 </div>
-<div class="accname-test" data-test="test__151" data-name="This is a test." data-comment="Name file-label-inline-block-styles"></div>
+<div class="accname-test" data-test="test__151" data-name="This is a test."
+     data-comment="Name file-label-inline-block-styles"></div>
 
 <div id="wrapper__152">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
-    <input type="file" id="test__152" />
+    <input type="file" id="test__152"/>
     <label for="test__152">
         <span class="hidden">1</span><span>2</span>
         <span style="visibility: hidden;">3</span><span>4</span>
@@ -1321,10 +1466,11 @@
         <span aria-hidden="false" class="hidden">9</span><span>10</span>
     </label>
 </div>
-<div class="accname-test" data-test="test__152" data-name="2 4 6 8 10" data-comment="Name file-label-inline-hidden-elements"></div>
+<div class="accname-test" data-test="test__152" data-name="2 4 6 8 10"
+     data-comment="Name file-label-inline-hidden-elements"></div>
 
 <div id="wrapper__153">
-    <input type="file" id="test__153" />
+    <input type="file" id="test__153"/>
     <label for="test__153">Flash <span aria-owns="id1__153">the screen</span> times.</label>
     <div>
         <div id="id1__153" role="combobox" aria-owns="id2__153">
@@ -1333,52 +1479,59 @@
     </div>
     <div>
         <ul id="id2__153" role="listbox" style="list-style-type: none;">
-            <li role="option" >1 </li>
-            <li role="option" aria-selected="true">2 </li>
-            <li role="option">3 </li>
+            <li role="option">1</li>
+            <li role="option" aria-selected="true">2</li>
+            <li role="option">3</li>
         </ul>
     </div>
 </div>
-<div class="accname-test" data-test="test__153" data-name="Flash the screen 2 times." data-comment="Name file-label-owned-combobox-owned-listbox"></div>
+<div class="accname-test" data-test="test__153" data-name="Flash the screen 2 times."
+     data-comment="Name file-label-owned-combobox-owned-listbox"></div>
 
 <div id="wrapper__154">
-    <input type="file" id="test__154" />
+    <input type="file" id="test__154"/>
     <label for="test__154">Flash <span aria-owns="id1__154">the screen</span> times.</label>
     <div id="id1__154">
         <div role="combobox">
             <div role="textbox"></div>
             <ul role="listbox" style="list-style-type: none;">
-                <li role="option" aria-selected="true">1 </li>
-                <li role="option">2 </li>
-                <li role="option">3 </li>
+                <li role="option" aria-selected="true">1</li>
+                <li role="option">2</li>
+                <li role="option">3</li>
             </ul>
         </div>
     </div>
 </div>
-<div class="accname-test" data-test="test__154" data-name="Flash the screen 1 times." data-comment="Name file-label-owned-combobox"></div>
+<div class="accname-test" data-test="test__154" data-name="Flash the screen 1 times."
+     data-comment="Name file-label-owned-combobox"></div>
 
 <div id="wrapper__155">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
     <div id="test__155" role="link" tabindex="0">
         <span aria-hidden="true"><i> Hello, </i></span>
         <span>My</span> name is
-        <div><img src="file.jpg" title="Bryan" alt="" role="presentation" /></div>
+        <div><img src="file.jpg" title="Bryan" alt="" role="presentation"/></div>
         <span role="presentation" aria-label="Eli"><span aria-label="Garaventa">Zambino</span></span>
         <span>the weird.</span>
         (QED)
         <span class="hidden"><i><b>and don't you forget it.</b></i></span>
     </div>
 </div>
-<div class="accname-test" data-test="test__155" data-name="My name is Eli the weird. (QED)" data-comment="Name link-mixed-content"></div>
+<div class="accname-test" data-test="test__155" data-name="My name is Eli the weird. (QED)"
+     data-comment="Name link-mixed-content"></div>
 
 <div id="wrapper__156">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
     </style>
     <div>
-        <input id="test__156" type="text" aria-labelledby="lbl1__156 lbl2__156" aria-describedby="descId__156" />
+        <input id="test__156" type="text" aria-labelledby="lbl1__156 lbl2__156" aria-describedby="descId__156"/>
         <span>
       <span aria-hidden="true" id="lbl1__156">Important</span>
       <span class="hidden">
@@ -1390,7 +1543,7 @@
         <div id="descId__156">
             <span aria-hidden="true"><i> Hello, </i></span>
             <span>My</span> name is
-            <div><img src="file.jpg" title="Bryan" alt="" role="presentation" /></div>
+            <div><img src="file.jpg" title="Bryan" alt="" role="presentation"/></div>
             <span role="presentation" aria-label="Eli">
         <span aria-label="Garaventa">Zambino</span>
       </span>
@@ -1400,8 +1553,12 @@
             <table>
                 <tr>
                     <td>Where</td>
-                    <td style="visibility:hidden;"><div>in</div></td>
-                    <td><div style="display:none;">the world</div></td>
+                    <td style="visibility:hidden;">
+                        <div>in</div>
+                    </td>
+                    <td>
+                        <div style="display:none;">the world</div>
+                    </td>
                     <td>are my marbles?</td>
                 </tr>
             </table>
@@ -1411,7 +1568,7 @@
 <!-- <div class="accname&#45;test" data&#45;test="test__156" data&#45;description="My name is Eli the weird. (QED) Where are my marbles?" data&#45;comment="Description from content of describedby element which is hidden (DO NOT USE)"></div> -->
 
 <div id="wrapper__157">
-    <a id="test__157" href="#" aria-label="California" title="San Francisco" >United States</a>
+    <a id="test__157" href="#" aria-label="California" title="San Francisco">United States</a>
 </div>
 <div class="accname-test" data-test="test__157" data-name="California" data-comment="Name link-with-label"></div>
 
@@ -1421,31 +1578,35 @@
         <input role="combobox" type="text" title="Choose your country." value="United States">
     </h2>
 </div>
-<div class="accname-test" data-test="test__158" data-name="Country of origin: United States" data-comment="Name  heading-combobox-focusable-alternative"></div>
+<div class="accname-test" data-test="test__158" data-name="Country of origin: United States"
+     data-comment="Name  heading-combobox-focusable-alternative"></div>
 
 <div id="wrapper__159">
-    <a id="test__159" href="#" aria-label="California" title="San Francisco" >United States</a>
+    <a id="test__159" href="#" aria-label="California" title="San Francisco">United States</a>
 </div>
-<div class="accname-test" data-test="test__159" data-description="San Francisco" data-comment="Description link-with-label"></div>
+<div class="accname-test" data-test="test__159" data-description="San Francisco"
+     data-comment="Description link-with-label"></div>
 
 <div id="wrapper__160">
     <div><input aria-label="Name" id="test__160" title="Title" aria-describedby="ID1__160" type="text"></div>
     <div id="ID1__160">Description</div>
 </div>
-<div class="accname-test" data-test="test__160" data-description="Description" data-comment="Description title-same-element"></div>
+<div class="accname-test" data-test="test__160" data-description="Description"
+     data-comment="Description title-same-element"></div>
 
 <label for="test__161">before</label>
 <label>
     around
-    <input id="test__161" />
+    <input id="test__161"/>
 </label>
 <label for="test__161">after</label>
 
-<div class="accname-test" data-test="test__161" data-name="before around after" data-description="" data-comment="different kinds of labels"></div>
+<div class="accname-test" data-test="test__161" data-name="before around after" data-description=""
+     data-comment="different kinds of labels"></div>
 
 <div id="el1" aria-labelledby="el3"></div>
 <div id="el2" aria-labelledby="el1"></div>
-<div id="el3"> hello </div>
+<div id="el3"> hello</div>
 
 <div class="accname-test" data-test="el1" data-name="hello" data-comment="labelledby"></div>
 <div class="accname-test" data-test="el2" data-name="" data-comment="recursive labelledby is ignored"></div>
@@ -1462,18 +1623,23 @@
     </li>
 </ul>
 
-<div class="accname-test" data-test="del_row1" data-name="Delete Documentation.pdf" data-comment="labelledby to self"></div>
-<div class="accname-test" data-test="del_row2" data-name="Delete HolidayLetter.pdf" data-comment="labelledby to self"></div>
+<div class="accname-test" data-test="del_row1" data-name="Delete Documentation.pdf"
+     data-comment="labelledby to self"></div>
+<div class="accname-test" data-test="del_row2" data-name="Delete HolidayLetter.pdf"
+     data-comment="labelledby to self"></div>
 
 
-<div id="test" role="checkbox" aria-checked="false">Flash the screen <span role="textbox" aria-multiline="false"> 5 </span> times</div>
+<div id="test" role="checkbox" aria-checked="false">Flash the screen <span role="textbox"
+                                                                           aria-multiline="false"> 5 </span> times
+</div>
 
 <div class="accname-test" data-test="test" data-name="Flash the screen 5 times" data-comment="embedded control"></div>
 
 
 <label id="append-without-space"> <input type="checkbox"> Make this the <em>top</em>most element</label>
 
-<div class="accname-test" data-test="append-without-space" data-name="Make this the topmost element" data-comment="append without space"></div>
+<div class="accname-test" data-test="append-without-space" data-name="Make this the topmost element"
+     data-comment="append without space"></div>
 
 
 <div>
@@ -1481,15 +1647,19 @@
         .center::before {
             content: "b"
         }
+
         .center::after {
             content: "d"
         }
+
         #with-url::before {
             content: url('http://lorempixel.com/400/200/')
         }
+
         #with-counter::before {
             content: counter(does-not-exist)
         }
+
         #with-combination::before {
             content: counter(does-not-exist) ". "
         }
@@ -1501,10 +1671,29 @@
 </div>
 
 <div class="accname-test" data-test="test2" data-name="abcde" data-description=""></div>
-<div class="accname-test" data-test="with-url" data-name="content" data-description="" data-comment="url() in pseudo element content should be ignored"></div>
-<div class="accname-test" data-test="with-counter" data-name="0content" data-description="" data-comment="counter() in pseudo content should be resolved"></div>
-<div class="accname-test" data-test="with-combination" data-name="0. content" data-description="" data-comment="several values in pseudo content should be concatenated"></div>
+<div class="accname-test" data-test="with-url" data-name="content" data-description=""
+     data-comment="url() in pseudo element content should be ignored"></div>
+<div class="accname-test" data-test="with-counter" data-name="0content" data-description=""
+     data-comment="counter() in pseudo content should be resolved"></div>
+<div class="accname-test" data-test="with-combination" data-name="0. content" data-description=""
+     data-comment="several values in pseudo content should be concatenated"></div>
 
+<label for="uk01">aa</label>
+<label for="uk01">bb</label>
+<input id="uk01" type="text">
+<div class="accname-test" data-test="uk01" data-name="aa bb" data-description=""></div>
+
+<label for="uk02">
+    aa
+    <input id="uk02" type="text">
+</label>
+<div class="accname-test" data-test="uk02" data-name="aa" data-description=""></div>
+
+<label>
+    aa
+    <input id="uk03" type="text">
+</label>
+<div class="accname-test" data-test="uk03" data-name="aa" data-description=""></div>
 
 <script src="name.js"></script>
 
