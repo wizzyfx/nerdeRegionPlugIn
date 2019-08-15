@@ -43,19 +43,19 @@ const getAccessibleName = function (node) {
 		return false;
 	};
 
-	const getLabelNode = function (node) {
+	const getLabelNodes = function (node) {
 		const nodeId = node.id;
 		if (nodeId && /^[A-Za-z][\da-zA-Z_:.-]/.test(nodeId)) {
-			const labelNode = document.querySelector(`label[for=${nodeId}]`);
-			if (labelNode) {
-				return labelNode;
+			const labelNodes = document.querySelectorAll(`label[for=${nodeId}]`);
+			if (labelNodes.length) {
+				return labelNodes;
 			}
 		}
 		return false;
 	};
 
 	const getLabelParentNode = function (node) {
-		const labelNode = node.closest('label');
+		const labelNode = node.parentNode.closest('label');
 		if (labelNode) {return labelNode;}
 		return false;
 	};
@@ -82,7 +82,7 @@ const getAccessibleName = function (node) {
 		return refNodes;
 	};
 
-	const calculateName = function (currentNode, ignoreHidden = false, ignoreLabelledBy = false) {
+	const calculateNode = function (currentNode, ignoreHidden = false, ignoreLabelledBy = false, preventRecursion = false) {
 		// A) If the current node is hidden and is not directly referenced by aria-labelledby or
 		// aria-describedby return the empty string.
 		if (!ignoreHidden) {
@@ -98,7 +98,7 @@ const getAccessibleName = function (node) {
 			const ariaLabelNodes = getAriaLabelNodes(currentNode);
 			if(ariaLabelNodes.length) {
 				return ariaLabelNodes.map(function (node) {
-					return calculateName(node, true, node === currentNode);
+					return calculateNode(node, true, node === currentNode);
 				}).join(' ');
 			}
 		}
@@ -117,9 +117,13 @@ const getAccessibleName = function (node) {
 		// host language, unless the element is marked as presentational (role="presentation" or role="none").
 		if(!currentNode.matches('[role=none],[role=presentation]')) {
 			if(isLabelable(currentNode)) {
-				const labelNode = getLabelNode(currentNode);
-				if (labelNode) {
-					return calculateName(labelNode);
+				const labelNodes = getLabelNodes(currentNode);
+				if (labelNodes) {
+					let labels = [];
+					labelNodes.forEach(function (node) {
+						labels.push(calculateNode(node, false, false, currentNode));
+					});
+					return labels.join(' ');
 				}
 			}
 
@@ -137,7 +141,7 @@ const getAccessibleName = function (node) {
 
 			const labelingDescendant = getLabelingDescendant(currentNode);
 			if(labelingDescendant) {
-				return calculateName(labelingDescendant);
+				return calculateNode(labelingDescendant);
 			}
 		}
 
@@ -145,18 +149,32 @@ const getAccessibleName = function (node) {
 		// directly referenced by aria-labelledby) for another widget, where the user can adjust the embedded control's
 		// value, then include the embedded control
 
-		if(isLabelable(currentNode)) {
-			const labelNode = getLabelParentNode(currentNode);
-			if (labelNode) {
-				return calculateName(labelNode);
-			}
+		const labelParentNode = getLabelParentNode(currentNode);
+		if(labelParentNode) {
+			return 'dd';
 		}
 
+		//if(labelParentNode) {
+		//if (currentNode.matches('textarea,button')) {
+		// return currentNode.value.trim() || currentNode.textContent.trim();
+		//}
+		//}
 
-		return currentNode.textContent.trim();
+		if(currentNode.childNodes.length) {
+			let final = '';
+			currentNode.childNodes.forEach((childNode)=>{
+				if(childNode.nodeType === 3) {
+					final += childNode.nodeValue.trim();
+				} else if(childNode.nodeType === 1) {
+					//final += calculateNode(childNode, false, false, currentNode);
+				}
+			});
+			return final;
+		}
+
 	};
 
-	return calculateName(node);
+	return calculateNode(node);
 };
 
 document.querySelectorAll('.accname-test').forEach(function (el) {
