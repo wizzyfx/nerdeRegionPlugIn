@@ -91,11 +91,16 @@ const getAccessibleName = function (node) {
 		return before + text + after;
 	};
 
+	const getFlatString = function (text) {
+		return getName(el).replace(/\s+/g, ' ').trim();
+	};
+
 	let visited = [];
 	const calculateNode = function (currentNode, traversalType = 'normal', ignoreHidden = false, parentNode = {}) {
 		console.log(currentNode);
 
 		if (visited.includes(currentNode)) {
+			console.log('NR')
 			return '';
 		} else {
 			visited.push(currentNode);
@@ -180,6 +185,11 @@ const getAccessibleName = function (node) {
 		const labelParentNode = getLabelParentNode(currentNode);
 		if(labelParentNode) {
 			console.log('E');
+			if (currentNode.matches('input[type=text]')) {
+				if (currentNode.value && currentNode.value.trim() !== '') {
+					return currentNode.value.trim();
+				}
+			}
 			return calculateNode(labelParentNode, 'labeling-parent');
 		}
 
@@ -196,17 +206,17 @@ const getAccessibleName = function (node) {
 		//}
 
 		if(currentNode.childNodes.length) {
-			let final = '';
+			let final = [];
 			currentNode.childNodes.forEach((childNode)=>{
 				if(childNode.nodeType === 3) {
-					final += childNode.nodeValue.trim();
+					final.push(childNode.nodeValue.trim());
 				} else if(childNode.nodeType === 1) {
 					console.log('FR');
-					final += calculateNode(childNode, 'recursion');
+					final.push(calculateNode(childNode, 'recursion'));
 				}
 			});
 			console.log('F');
-			return appendPseudoContent(currentNode, final);
+			return appendPseudoContent(currentNode, final.join(' ').trim());
 		}
 
 		if(currentNode.nodeType === 3) {
@@ -215,6 +225,7 @@ const getAccessibleName = function (node) {
 		}
 
 		console.log('Z');
+		return '';
 
 	};
 
