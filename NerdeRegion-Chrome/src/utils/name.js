@@ -82,11 +82,30 @@ const getAccessibleName = function (node) {
 		return refNodes;
 	};
 
-	const calculateNode = function (currentNode, ignoreHidden = false, ignoreLabelledBy = false, preventRecursion = false) {
+	const appendPseudoContent = function (node, text) {
+		const pattern = /^"(.*)"$/m;
+		let before = pattern.exec(window.getComputedStyle(node, ':before').getPropertyValue('content'));
+		let after = pattern.exec(window.getComputedStyle(node, ':after').getPropertyValue('content'));
+		before = before != null ? before[1] : '';
+		after = after != null ? after[1] : '';
+		return before + text + after;
+	};
+
+	let visited = [];
+	const calculateNode = function (currentNode, traversalType = 'normal', ignoreHidden = false, parentNode = {}) {
+		console.log(currentNode);
+
+		if (visited.includes(currentNode)) {
+			return '';
+		} else {
+			visited.push(currentNode);
+		}
+
 		// A) If the current node is hidden and is not directly referenced by aria-labelledby or
 		// aria-describedby return the empty string.
 		if (!ignoreHidden) {
 			if(isHidden(currentNode)) {
+				console.log('A');
 				return '';
 			}
 		}
@@ -94,11 +113,12 @@ const getAccessibleName = function (node) {
 		// B) If the current node has an aria-labelledby attribute that contains at least one
 		// valid IDREF, and the current node is not already part of an aria-labelledby traversal,
 		// process its IDREFs in the order they occur
-		if(!ignoreLabelledBy) {
+		if(traversalType !== 'aria-labelledby') {
 			const ariaLabelNodes = getAriaLabelNodes(currentNode);
 			if(ariaLabelNodes.length) {
+				console.log('B');
 				return ariaLabelNodes.map(function (node) {
-					return calculateNode(node, true, node === currentNode);
+					return calculateNode(node, 'aria-labelledby', true);
 				}).join(' ');
 			}
 		}
@@ -109,39 +129,47 @@ const getAccessibleName = function (node) {
 		//  as defined in step 2E, ignore aria-label and skip to rule 2E.
 		const ariaLabel = getAriaLabel(currentNode);
 		if(ariaLabel) {
+			console.log('C');
 			return ariaLabel;
 		}
 
 		// D) f the current node's native markup provides an attribute (e.g. title) or element (e.g. HTML label)
 		// that defines a text alternative, return that alternative in the form of a flat string as defined by the
 		// host language, unless the element is marked as presentational (role="presentation" or role="none").
+		// TODO: Return flat string
 		if(!currentNode.matches('[role=none],[role=presentation]')) {
 			if(isLabelable(currentNode)) {
 				const labelNodes = getLabelNodes(currentNode);
 				if (labelNodes) {
 					let labels = [];
 					labelNodes.forEach(function (node) {
-						labels.push(calculateNode(node, false, false, currentNode));
+						console.log('DR');
+						labels.push(calculateNode(node, 'labeling-nodes'));
 					});
+					console.log('D1');
 					return labels.join(' ');
 				}
 			}
 
 			if(currentNode.placeholder) {
+				console.log('D2');
 				return currentNode.placeholder;
 			}
 
 			if(currentNode.alt) {
+				console.log('D3');
 				return currentNode.alt;
 			}
 
 			if(currentNode.title && currentNode.matches('abbr,acronym')) {
+				console.log('D4');
 				return currentNode.title;
 			}
 
 			const labelingDescendant = getLabelingDescendant(currentNode);
 			if(labelingDescendant) {
-				return calculateNode(labelingDescendant);
+				console.log('D5');
+				return calculateNode(labelingDescendant, 'labeling-descendant');
 			}
 		}
 
@@ -151,8 +179,15 @@ const getAccessibleName = function (node) {
 
 		const labelParentNode = getLabelParentNode(currentNode);
 		if(labelParentNode) {
-			return 'dd';
+			console.log('E');
+			return calculateNode(labelParentNode, 'labeling-parent');
 		}
+
+		// F) Otherwise, if the current node's role allows name from content, or if the current node is referenced by
+		// aria-labelledby, aria-describedby, or is a native host language text alternative element (e.g. label in
+		// HTML), or is a descendant of a native host language text alternative
+
+
 
 		//if(labelParentNode) {
 		//if (currentNode.matches('textarea,button')) {
@@ -166,11 +201,20 @@ const getAccessibleName = function (node) {
 				if(childNode.nodeType === 3) {
 					final += childNode.nodeValue.trim();
 				} else if(childNode.nodeType === 1) {
-					//final += calculateNode(childNode, false, false, currentNode);
+					console.log('FR');
+					final += calculateNode(childNode, 'recursion');
 				}
 			});
-			return final;
+			console.log('F');
+			return appendPseudoContent(currentNode, final);
 		}
+
+		if(currentNode.nodeType === 3) {
+			console.log('G');
+			return currentNode.nodeValue.trim();
+		}
+
+		console.log('Z');
 
 	};
 
