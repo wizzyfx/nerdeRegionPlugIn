@@ -25,9 +25,7 @@ const NerdeRegion = (function () {
 		while (node) {
 			let realNode = node;
 			let name = realNode.tagName;
-			if (!name) {
-				break;
-			}
+			if (!name) { break;}
 			name = name.toLowerCase();
 			if (realNode.id && /^[A-Za-z][\da-zA-Z_:.-]/.test(realNode.id) && document.querySelectorAll('[id=' + realNode.id + ']').length === 1) {
 				name = '#' + realNode.id;

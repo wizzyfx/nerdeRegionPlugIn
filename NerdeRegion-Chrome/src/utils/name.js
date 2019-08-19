@@ -1,5 +1,6 @@
 const getAccessibleName = function (node) {
 	// https://www.w3.org/TR/accname-1.1/
+	// https://www.w3.org/TR/html-aam-1.0/#accessible-name-and-description-computation
 
 	const isHidden = function (node) {
 		const nodeStyle = window.getComputedStyle(node);
@@ -91,23 +92,22 @@ const getAccessibleName = function (node) {
 		return before + text + after;
 	};
 
-	const getFlatString = function (text) {
-		return getName(el).replace(/\s+/g, ' ').trim();
-	};
-
 	let visited = [];
 	const calculateNode = function (currentNode, traversalType = 'normal', ignoreHidden = false, parentNode = {}) {
 		console.log(currentNode);
 
-		if (visited.includes(currentNode)) {
-			console.log('NR')
-			return '';
-		} else {
-			visited.push(currentNode);
+		if(!(parentNode === currentNode && traversalType === 'aria-labelledby')) {
+			if (visited.includes(currentNode)) {
+				console.log('NR');
+				return '';
+			} else {
+				visited.push(currentNode);
+			}
 		}
 
-		// A) If the current node is hidden and is not directly referenced by aria-labelledby or
-		// aria-describedby return the empty string.
+		// A) If the current node is hidden and is not directly referenced by aria-labelledby or aria-describedby, nor
+		// directly referenced by a native host language text alternative element (e.g. label in HTML) or attribute,
+		// return the empty string.
 		if (!ignoreHidden) {
 			if(isHidden(currentNode)) {
 				console.log('A');
@@ -123,7 +123,7 @@ const getAccessibleName = function (node) {
 			if(ariaLabelNodes.length) {
 				console.log('B');
 				return ariaLabelNodes.map(function (node) {
-					return calculateNode(node, 'aria-labelledby', true);
+					return calculateNode(node, 'aria-labelledby', true, currentNode);
 				}).join(' ');
 			}
 		}
@@ -152,30 +152,21 @@ const getAccessibleName = function (node) {
 						labels.push(calculateNode(node, 'labeling-nodes'));
 					});
 					console.log('D1');
-					return labels.join(' ');
+					return appendPseudoContent(currentNode, labels.join(' '));
 				}
 			}
 
-			if(currentNode.placeholder) {
-				console.log('D2');
-				return currentNode.placeholder;
-			}
 
-			if(currentNode.alt) {
-				console.log('D3');
-				return currentNode.alt;
-			}
 
-			if(currentNode.title && currentNode.matches('abbr,acronym')) {
-				console.log('D4');
-				return currentNode.title;
-			}
-
-			const labelingDescendant = getLabelingDescendant(currentNode);
+			/*const labelingDescendant = getLabelingDescendant(currentNode);
 			if(labelingDescendant) {
 				console.log('D5');
 				return calculateNode(labelingDescendant, 'labeling-descendant');
 			}
+
+			if (currentNode.value && currentNode.value.trim() !== '') {
+				return currentNode.value.trim();
+			}*/
 		}
 
 		// E) If the current node is a control embedded within the label (e.g. the label element in HTML or any element
@@ -224,6 +215,31 @@ const getAccessibleName = function (node) {
 			return currentNode.nodeValue.trim();
 		}
 
+		if(currentNode.placeholder) {
+			console.log('D2');
+			return currentNode.placeholder;
+		}
+
+		if(currentNode.alt) {
+			console.log('D3');
+			return currentNode.alt;
+		}
+
+		if(currentNode.title) {
+			console.log('D4');
+			return currentNode.title;
+		}
+
+		if (currentNode.value && currentNode.value.trim() !== '') {
+			console.log('V');
+			return currentNode.value.trim();
+		}
+
+		if(node.matches('[aria-valuenow]')) {
+			const nodeLabel = node.getAttribute('aria-valuenow').trim();
+			return nodeLabel !== '' ? nodeLabel : false;
+		}
+
 		console.log('Z');
 		return '';
 
@@ -232,9 +248,11 @@ const getAccessibleName = function (node) {
 	return calculateNode(node);
 };
 
-document.querySelectorAll('.accname-test').forEach(function (el) {
+const totalAcc = document.querySelectorAll('.accname-test');
+totalAcc.forEach(function (el) {
 	let acname = getAccessibleName(document.querySelector('#' + el.dataset.test));
 	el.textContent = acname;
 	if (acname === el.dataset.name) {el.classList.add('pass');}
-
 });
+
+console.log('PASS: ' + document.querySelectorAll('.accname-test.pass').length + '/' + totalAcc.length)
