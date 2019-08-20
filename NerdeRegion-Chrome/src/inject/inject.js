@@ -15,6 +15,8 @@ const NerdeRegion = (function () {
 		'[role="status"]'
 	];
 
+	const inFrame = window.self !== window.top;
+
 	const sendObjectToDevTools = (message) => {
 		chrome.extension.sendMessage(message);
 	};
@@ -137,6 +139,11 @@ const NerdeRegion = (function () {
 		watchList.forEach((node, i)=>{
 			if(node.isConnected) {
 				console.log(node.dataset.nerderegionid + ') ' + getPath(node) + ' | ' + node.textContent);
+				sendObjectToDevTools({
+					action: "regionDump",
+					data: [node.dataset.nerderegionid, getPath(node), node.textContent],
+					framed: inFrame
+				});
 			} else {
 				delete watchList[i];
 			}

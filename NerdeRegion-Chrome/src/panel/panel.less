@@ -1,0 +1,122 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+@font-face {
+  font-family: 'fontello';
+  src: url('fontello.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.toolbar {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  height: 2rem;
+
+  .group {
+    display: inline-block;
+    padding: 0 0.5rem 0 0;
+    margin: 0.25rem 0 0.25rem 0;
+    border-right: 1px solid #ccc;
+
+    &.right {
+      display: inline-block;
+      float: right;
+      border: none;
+
+      .about span{
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: #585858;
+        border-radius: 8px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        line-height: 16px;
+        font-family: serif;
+      }
+    }
+
+    &.last {
+      border: none;
+    }
+
+    &:first-of-type {
+      padding: 0 0.5rem;
+    }
+  }
+
+  .toolbarButton {
+    color: #585858;
+    padding: 0;
+    margin: 0 0.5rem 0 0;
+    height: 1.5rem;
+    border: none;
+    background-color: #FFF;
+    text-align: left;
+
+    &:before {
+      font-family: "fontello";
+      font-style: normal;
+      font-weight: normal;
+      speak: none;
+      display: inline-block;
+      text-decoration: inherit;
+      width: 1em;
+      margin-right: .2em;
+      text-align: center;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1em;
+      margin-left: .2em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 133%;
+      vertical-align: text-bottom;
+    }
+
+    &.clear::before {
+      content: '\e807';
+    }
+
+    &.record, &.pause {
+      width: 4.25rem;
+    }
+
+    &.record:before {
+      content: '\e805';
+    }
+
+    &.pause:before {
+      content: '\e804';
+    }
+
+    &.highlight::before {
+      content: '\f096';
+      position: relative;
+      top: 1px;
+
+      &.on:before {
+        content: '\f14a';
+        top: 0px;
+      }
+    }
+  }
+}
+
+.dark{
+  .toolbarButton {
+    color: #dedede;
+    background-color: #242424;
+
+    &:hover, &:focus {
+      color: #e6e6e6;
+    }
+  }
+}
