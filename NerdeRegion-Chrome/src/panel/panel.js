@@ -1,6 +1,6 @@
 (function createChannel () {
 	//Create a port with service page for continuous message communication
-	var port = chrome.extension.connect({
+	const port = chrome.extension.connect({
 		name: "nerdeRegionChromeExtension"
 	});
 
@@ -8,6 +8,8 @@
 	port.onMessage.addListener(function (message) {
 		if (message.sender.tab.id == chrome.devtools.inspectedWindow.tabId) {
 			console.log(message);
+			$('#events ol').append(`<li>${message.content.framed} ${message.content.data[0]} ${message.content.data[1]} ${message.content.data[2]}<li>`);
+			$('#events').scrollTop($('#events')[0].scrollHeight);
 		}
 	});
 }());
