@@ -3,27 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="panel.css">
+    <title>NerdeRegion</title>
+    <script src="../../vendor/jquery-3.2.1.slim.min.js"></script>
 </head>
 <body>
 <header>
-    <div class="toolbar">
+    <div id="toolbar">
         <div class="group">
             <button id="captureButton" class="toolbarButton record">Record</button>
-            <button id="clearButton" class="toolbarButton clear">Reset</button>
+            <button id="resetButton" class="toolbarButton clear">Reset</button>
         </div>
         <div class="group">
-            <button id="cssPathButton" class="toolbarButton highlight" aria-label="Turn On Focus Indicator">Group by CSS Path</button>
+            <button id="cssPathButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Group by CSS</button>
         </div>
         <div class="group last">
-            <button id="highlightButton" class="toolbarButton highlight" aria-label="Turn On Focus Indicator">Calculate Name</button>
+            <button id="highlightButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Calculate Name
+            </button>
         </div>
         <div class="group right">
-            <button id="infoButton" class="toolbarButton about" aria-label="About NerdeRegion"><span>i</span></button>
+            <button id="infoButton" class="toolbarButton about check" aria-label="About NerdeRegion"><span>i</span></button>
         </div>
     </div>
 </header>
 <main>
-    asdf
+    <div id="logs">
+        <ul id="regions" role="tablist">
+            <li role="none"><a role="tab" aria-selected="false" aria-controls="events">1</a></li>
+        </ul>
+        <div id="events" role="tabpanel" aria-label="Live Region Log">
+            <ol >
+                <li>1</li>
+            </ol>
+        </div>
+    </div>
 </main>
 <script src="/vendor/jquery-3.2.1.slim.min.js"></script>
 <script src="panel.js"></script>

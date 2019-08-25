@@ -12,4 +12,12 @@
 	});
 }());
 
-$('body').addClass(chrome.devtools.panels.themeName)
+$('.check').on('click',function () {
+	if ($(this).hasClass('on')) {
+		$(this).removeClass('on').attr('aria-label', 'Turn On Focus Indicator');
+	} else {
+		$(this).addClass('on').attr('aria-label', 'Turn Off Focus Indicator');
+	}
+});
+
+$('body').addClass(chrome.devtools.panels.themeName);

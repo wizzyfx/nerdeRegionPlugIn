@@ -1,33 +1,35 @@
-body {
-  padding: 0;
-  margin: 0;
-  font-family: sans-serif;
-}
 @font-face {
   font-family: 'fontello';
   src: url('fontello.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
-.toolbar {
+body {
   padding: 0;
   margin: 0;
-  border-bottom: 1px solid #ccc;
+  font-family: sans-serif;
+  font-size: 15px;
+}
+#toolbar {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #d0d0d0;
   overflow: hidden;
   height: 2rem;
+  background-color: #f3f3f3;
 }
-.toolbar .group {
+#toolbar .group {
   display: inline-block;
   padding: 0 0.5rem 0 0;
   margin: 0.25rem 0 0.25rem 0;
   border-right: 1px solid #ccc;
 }
-.toolbar .group.right {
+#toolbar .group.right {
   display: inline-block;
   float: right;
   border: none;
 }
-.toolbar .group.right .about span {
+#toolbar .group.right .about span {
   display: block;
   width: 16px;
   height: 16px;
@@ -39,22 +41,22 @@ body {
   line-height: 16px;
   font-family: serif;
 }
-.toolbar .group.last {
+#toolbar .group.last {
   border: none;
 }
-.toolbar .group:first-of-type {
+#toolbar .group:first-of-type {
   padding: 0 0.5rem;
 }
-.toolbar .toolbarButton {
-  color: #585858;
+#toolbar .toolbarButton {
+  color: #5a5a5a;
   padding: 0;
   margin: 0 0.5rem 0 0;
   height: 1.5rem;
   border: none;
-  background-color: #FFF;
+  background-color: #f3f3f3;
   text-align: left;
 }
-.toolbar .toolbarButton:before {
+#toolbar .toolbarButton:before {
   font-family: "fontello";
   font-style: normal;
   font-weight: normal;
@@ -73,27 +75,63 @@ body {
   font-size: 133%;
   vertical-align: text-bottom;
 }
-.toolbar .toolbarButton.clear::before {
+#toolbar .toolbarButton.clear::before {
   content: '\e807';
 }
-.toolbar .toolbarButton.record,
-.toolbar .toolbarButton.pause {
+#toolbar .toolbarButton.record,
+#toolbar .toolbarButton.pause {
   width: 4.25rem;
 }
-.toolbar .toolbarButton.record:before {
+#toolbar .toolbarButton.record:before {
   content: '\e805';
 }
-.toolbar .toolbarButton.pause:before {
+#toolbar .toolbarButton.pause:before {
   content: '\e804';
 }
-.toolbar .toolbarButton.highlight::before {
+#toolbar .toolbarButton.check:before {
   content: '\f096';
   position: relative;
   top: 1px;
 }
-.toolbar .toolbarButton.highlight::before.on:before {
+#toolbar .toolbarButton.check.on:before {
   content: '\f14a';
   top: 0px;
+}
+#logs {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 2.1rem;
+  bottom: 0;
+  width: 100%;
+}
+#logs ul,
+#logs ol {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#logs ul li,
+#logs ol li {
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+#logs #regions {
+  display: block;
+  background-color: #f3f3f3;
+  flex: 1 0;
+}
+#logs #events {
+  display: block;
+  background-color: #ffffff;
+  flex: 3 1;
+  border-left: 1px solid #d0d0d0;
 }
 .dark .toolbarButton {
   color: #dedede;
