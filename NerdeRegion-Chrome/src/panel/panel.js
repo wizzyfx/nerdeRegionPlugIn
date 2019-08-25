@@ -8,13 +8,13 @@
 	port.onMessage.addListener(function (message) {
 		if (message.sender.tab.id == chrome.devtools.inspectedWindow.tabId) {
 			console.log(message);
-			$('#events ol').append(`<li>${message.content.framed} ${message.content.data[0]} ${message.content.data[1]} ${message.content.data[2]}<li>`);
+			$('#events ol').append(`<li>${message.content.framed} ${message.content.data[0]}<hr>${message.content.data[1]}<hr>${$('<div />').text(message.content.data[2]).html()}<hr>${message.content.data[3]}<li>`);
 			$('#events').scrollTop($('#events')[0].scrollHeight);
 		}
 	});
 }());
 
-$('.check').on('click',function () {
+$('.check').on('click', function () {
 	if ($(this).hasClass('on')) {
 		$(this).removeClass('on').attr('aria-label', 'Turn On Focus Indicator');
 	} else {
