@@ -7,8 +7,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: sans-serif;
-  font-size: 15px;
+  font: 400 13px system-ui;
 }
 #toolbar {
   padding: 0;
@@ -17,6 +16,7 @@ body {
   overflow: hidden;
   height: 2rem;
   background-color: #f3f3f3;
+  user-select: none;
 }
 #toolbar .group {
   display: inline-block;
@@ -118,7 +118,7 @@ body {
   list-style: none;
   display: block;
   margin: 0;
-  padding: 10px;
+  padding: 0;
 }
 #logs #regions {
   display: block;
@@ -126,20 +126,63 @@ body {
   flex: 1 0;
   overflow-x: hidden;
   overflow-y: auto;
+  user-select: none;
+}
+#logs #regions button.tab {
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  color: #373737;
+}
+#logs #regions button.tab.all {
+  padding: 1rem;
+}
+#logs #regions button.tab.gone {
+  color: #6f6f6f;
+}
+#logs #regions button.tab.active {
+  background-color: #0079e5;
+  color: #fff;
 }
 #logs #events {
   display: block;
   background-color: #ffffff;
+  box-shadow: 5px 9px 10px 0px rgba(0, 0, 0, 0.5);
   flex: 3 1;
   border-left: 1px solid #d0d0d0;
   overflow-x: hidden;
   overflow-y: auto;
 }
-.dark .toolbarButton {
+body.dark #toolbar {
+  background-color: #242424;
+  border-bottom-color: #525252;
+}
+body.dark #toolbar button.toolbarButton {
   color: #dedede;
   background-color: #242424;
 }
-.dark .toolbarButton:hover,
-.dark .toolbarButton:focus {
+body.dark #toolbar button.toolbarButton:hover,
+body.dark #toolbar button.toolbarButton:focus {
   color: #e6e6e6;
+}
+body.dark #regions {
+  background-color: #333333 !important;
+}
+body.dark #regions button.tab {
+  color: #cdcdcd !important;
+}
+body.dark #regions button.tab.gone {
+  color: #9a9a9a !important;
+}
+body.dark #regions button.tab.active {
+  background-color: #00659a !important;
+  color: #fff !important;
+}
+body.dark #events {
+  background-color: #242424 !important;
+  border-left-color: #525252 !important;
 }
