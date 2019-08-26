@@ -11,13 +11,13 @@
     <div id="toolbar">
         <div class="group">
             <button id="captureButton" class="toolbarButton record">Record</button>
-            <button id="resetButton" class="toolbarButton clear">Reset</button>
-        </div>
-        <div class="group">
-            <button id="cssPathButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Group by CSS
-            </button>
+            <button id="clearButton" class="toolbarButton clear">Clear</button>
         </div>
         <div class="group last">
+            <button id="cssPathButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Group by CSS
+            </button>
+            <button id="persistButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Persist Log
+            </button>
             <button id="highlightButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Calculate Name
             </button>
         </div>
@@ -34,7 +34,7 @@
                     All Regions
                 </button>
             </li>
-            <li role="none">
+            <!--li role="none">
                 <button role="tab" aria-selected="false" aria-controls="events" class="tab">
                     1) #liveregion
                 </button>
@@ -43,7 +43,7 @@
                 <button role="tab" aria-selected="false" aria-controls="events" class="tab gone">
                     2) #missingliveregion
                 </button>
-            </li>
+            </li-->
         </ul>
         <div id="events" role="tabpanel" aria-label="Live Region Log">
             <ol></ol>

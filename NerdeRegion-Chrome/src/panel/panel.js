@@ -46,6 +46,15 @@ function processIncoming (message) {
 	if(isScrollAble) {
 		eventsContainer.scrollTop = eventsContainer.scrollHeight;
 	}
+
+	if(!regionsContainer.querySelector(`.region-${regionId}`)) {
+		$(regionsContainer).append(
+			`<li role="none" class="region region-${regionId}">
+				<button role="tab" aria-selected="false" aria-controls="events" class="tab">
+					${regionCSS}
+				</button>
+			</li>`);
+	}
 }
 
 $('.check').on('click', function () {
@@ -54,6 +63,11 @@ $('.check').on('click', function () {
 	} else {
 		$(this).addClass('on').attr('aria-label', 'Turn Off Focus Indicator');
 	}
+});
+
+$('#clearButton').on('click', function () {
+	$(eventsList).empty();
+	$(regionsContainer).html('<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>');
 });
 
 $('body').addClass(chrome.devtools.panels.themeName);
