@@ -125,7 +125,6 @@ body {
   ul, ol {
     margin: 0;
     padding: 0;
-    width: 100%;
 
     li {
       list-style: none;
@@ -142,6 +141,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     user-select: none;
+    max-width: 15rem;
 
     button.tab {
       border: none;
@@ -176,6 +176,10 @@ body {
     border-left: 1px solid #d0d0d0;
     overflow-x: hidden;
     overflow-y: auto;
+    ol{
+      margin: 1rem;
+      box-sizing: border-box;
+    }
   }
 }
 
