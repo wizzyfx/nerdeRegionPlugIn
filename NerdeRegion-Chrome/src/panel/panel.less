@@ -152,6 +152,9 @@ body {
       box-sizing: border-box;
       text-align: left;
       color: #373737;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
 
       &.all {
         padding: 1rem;
@@ -177,8 +180,25 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     ol{
-      margin: 1rem;
+      margin: 0;
       box-sizing: border-box;
+      li{
+        padding: 1rem;
+        border-bottom: 1px solid #e6e6e6;
+        .time{}
+        .role{}
+        .type{}
+        .atomic{}
+        .relevant{}
+        .path{
+          padding: 0.5rem 0;
+        }
+        .content{
+          padding: 0.5rem;
+          background-color: #f3f3f3;
+          border-radius: 0.25rem;
+        }
+      }
     }
   }
 }
@@ -218,5 +238,14 @@ body.dark {
   #events {
     background-color: #242424 !important;
     border-left-color: #525252 !important;
+    color: #cdcdcd;
+    ol{
+      li{
+        border-bottom: 1px solid #414141 !important;
+        .content{
+          background-color: #2d2d2d !important;
+        }
+      }
+    }
   }
 }

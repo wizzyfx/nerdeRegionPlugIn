@@ -137,6 +137,9 @@ body {
   box-sizing: border-box;
   text-align: left;
   color: #373737;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 #logs #regions button.tab.all {
   padding: 1rem;
@@ -158,8 +161,20 @@ body {
   overflow-y: auto;
 }
 #logs #events ol {
-  margin: 1rem;
+  margin: 0;
   box-sizing: border-box;
+}
+#logs #events ol li {
+  padding: 1rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+#logs #events ol li .path {
+  padding: 0.5rem 0;
+}
+#logs #events ol li .content {
+  padding: 0.5rem;
+  background-color: #f3f3f3;
+  border-radius: 0.25rem;
 }
 body.dark #toolbar {
   background-color: #242424;
@@ -189,4 +204,11 @@ body.dark #regions button.tab.active {
 body.dark #events {
   background-color: #242424 !important;
   border-left-color: #525252 !important;
+  color: #cdcdcd;
+}
+body.dark #events ol li {
+  border-bottom: 1px solid #414141 !important;
+}
+body.dark #events ol li .content {
+  background-color: #2d2d2d !important;
 }
