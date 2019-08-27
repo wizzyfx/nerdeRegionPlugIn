@@ -182,13 +182,51 @@ body {
   padding: 1rem;
   border-bottom: 1px solid #e6e6e6;
 }
+#logs #events ol li .tag {
+  display: inline-block;
+  padding: 0;
+  margin: 0 0.33rem 0 0;
+  font-size: 90%;
+  color: #2229ab;
+}
+#logs #events ol li .tag strong {
+  color: #9b4804;
+  font-weight: 500;
+}
+#logs #events ol li .time {
+  color: #6a6a6a;
+}
 #logs #events ol li .path {
   padding: 0.5rem 0;
+  color: #881280;
+  font-weight: 500;
+}
+#logs #events ol li .path .icon:before {
+  content: '\e800';
 }
 #logs #events ol li .content {
   padding: 0.5rem;
   background-color: #f3f3f3;
   border-radius: 0.25rem;
+}
+#logs #events ol li .icon:before {
+  color: #727272;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-family: "fontello";
+  font-size: 100%;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  speak: none;
+  text-align: center;
+  text-decoration: inherit;
+  text-transform: none;
+  vertical-align: text-bottom;
 }
 body.dark #toolbar {
   background-color: #242424;

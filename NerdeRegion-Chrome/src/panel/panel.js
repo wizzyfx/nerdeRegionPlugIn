@@ -33,15 +33,35 @@ function processIncoming (message) {
 
 	$(eventsList).append(
 		`<li class="region-${regionId}">
-			<span class="time">${timestamp}</span>
-			<span class="role">Alert</span>
-			<span class="type">Assertive</span>
-			<span class="atomic">Atomic</span>
-			<span class="relevant">Additions</span>
-			<span class="relevant">In Frame</span>
-			<div class="path">${regionCSS}</div>
+			<span class="time tag">
+				<em class="icon" aria-hidden="true"></em> ${timestamp}
+			</span>
+			<span class="role tag">
+				
+				<strong>Role:</strong> Alert
+			</span>
+			<span class="type tag">
+				
+				<strong>Politeness:</strong> Assertive
+			</span>
+			<span class="atomic tag">
+				
+				<strong>Atomic:</strong> True
+			</span>
+			<span class="relevant tag">
+				
+				<strong>Relevant:</strong> Additions Text
+			</span>
+			<span class="frame tag">
+				
+				<strong>In Frame:</strong> Yes
+			</span>
+			<div class="path">
+				
+				${regionCSS}
+			</div>
 			<div class="content accname">${regionAccName}</div>
-		</li>`);
+        </li>`);
 
 	if(isScrollAble) {
 		eventsContainer.scrollTop = eventsContainer.scrollHeight;
