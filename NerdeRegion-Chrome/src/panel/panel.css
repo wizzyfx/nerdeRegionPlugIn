@@ -55,6 +55,20 @@ body {
   border: none;
   background-color: #f3f3f3;
   text-align: left;
+  /*.icon-target:before { content: '\e800'; }
+    .icon-live:before { content: '\e801'; }
+    .icon-atomic:before { content: '\e802';}
+    .icon-time:before { content: '\e803'; }
+    .icon-pause:before { content: '\e804'; }
+    .icon-record:before { content: '\e805'; }
+    .icon-clear:before { content: '\e807'; }
+    .icon-framed:before { content: '\e808'; }
+    .icon-unchecked:before { content: '\f096'; }
+    .icon-relevant:before { content: '\f0fe'; }
+    .icon-code:before { content: '\f121'; }
+    .icon-checked:before { content: '\f14a';}
+    .icon-busy:before { content: '\f250'; }
+    .icon-info:before { content: '\e806'; }*/
 }
 #toolbar .toolbarButton:before {
   font-family: "fontello";
