@@ -7,6 +7,7 @@
 body {
   padding: 0;
   margin: 0;
+  font-family: system-ui;
 }
 #toolbar {
   padding: 0;
@@ -252,6 +253,10 @@ body.dark #regions {
 body.dark #regions button.tab {
   color: #cdcdcd !important;
 }
+body.dark #regions button.tab em.id {
+  background-color: #cdcdcd !important;
+  color: #333333 !important;
+}
 body.dark #regions button.tab.gone {
   color: #9a9a9a !important;
 }
@@ -267,6 +272,20 @@ body.dark #events {
 body.dark #events ol li {
   border-bottom: 1px solid #414141 !important;
 }
+body.dark #events ol li .tag {
+  color: #cdcdcd !important;
+}
+body.dark #events ol li .time {
+  color: rgba(138, 204, 247, 0.75) !important;
+}
+body.dark #events ol li .path a {
+  color: #8accf7 !important;
+}
+body.dark #events ol li .path em.id {
+  background-color: #8accf7 !important;
+  color: #242424 !important;
+}
 body.dark #events ol li .content {
+  border-left: 2px solid #8accf7 !important;
   background-color: #2d2d2d !important;
 }
