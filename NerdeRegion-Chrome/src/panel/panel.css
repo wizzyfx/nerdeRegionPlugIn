@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'fontello';
-  src: url('fontello.woff2') format('woff2');
+  font-family: "fontello";
+  src: url("fontello.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -90,25 +90,25 @@ body {
   vertical-align: text-bottom;
 }
 #toolbar .toolbarButton.clear::before {
-  content: '\e807';
+  content: "\e807";
 }
 #toolbar .toolbarButton.record,
 #toolbar .toolbarButton.pause {
   width: 4.25rem;
 }
 #toolbar .toolbarButton.record:before {
-  content: '\e805';
+  content: "\e805";
 }
 #toolbar .toolbarButton.pause:before {
-  content: '\e804';
+  content: "\e804";
 }
 #toolbar .toolbarButton.check:before {
-  content: '\f096';
+  content: "\f096";
   position: relative;
   top: 1px;
 }
 #toolbar .toolbarButton.check.on:before {
-  content: '\f14a';
+  content: "\f14a";
   top: 0px;
 }
 #logs {
@@ -231,13 +231,13 @@ body {
   border-left: 2px solid #007ee2;
   background-color: #fafafa;
   padding: 0.5rem;
-  font-family: 'Monaco', 'Menlo', courier, monospace;
+  font-family: "Monaco", "Menlo", courier, monospace;
   font-weight: 400;
   font-size: 90%;
 }
 #logs #events ol li .content pre {
   white-space: pre-wrap;
-  font-family: 'Monaco', 'Menlo', courier, monospace;
+  font-family: "Monaco", "Menlo", courier, monospace;
   font-weight: 400;
   font-size: 100%;
   margin: 0;
