@@ -12,6 +12,7 @@
 	});
 }());
 
+Rainbow.defer = true;
 const eventsContainer = document.querySelector('#events');
 const eventsList = document.querySelector('#events ol');
 const regionsContainer = document.querySelector('#regions');
@@ -24,28 +25,31 @@ function processIncoming (message) {
 	const regionId = message.content.data[0];
 	const regionCSS = message.content.data[1];
 	const regionAccName = message.content.data[3];
-	const regionHTMLContent = $('<div />').text(message.content.data[2]).html();
+	//let regionHTMLContent = $('<div />').text(message.content.data[2]).html();
 	const regionInFrame = message.content.framed;
 	const isScrollAble = Math.abs((eventsContainer.scrollTop + eventsContainer.offsetHeight) - eventsContainer.scrollHeight) < 10;
 
 	const currentTime = new Date();
 	const timestamp = `${padZero(currentTime.getHours(), 2)}:${padZero(currentTime.getMinutes(), 2)}:${padZero(currentTime.getSeconds(), 2)}:${padZero(currentTime.getMilliseconds(), 3)}`;
 
-	$(eventsList).append(
-		`<li class="region-${regionId}">
-			<span class="role tag"><strong>Role:</strong> Alert</span>
-			<span class="type tag"><strong>Politeness:</strong> Assertive</span>
-			<span class="atomic tag"><strong>Atomic:</strong> True</span>
-			<span class="relevant tag"><strong>Relevant:</strong> Additions Text</span>
-			<span class="frame tag"><strong>In Frame:</strong> Yes</span>
+
+	Rainbow.color(message.content.data[2], 'html', function(highlightedCode) {
+		$(eventsList).append(
+			`<li class="region-${regionId}">
+			<span class="role meta"><strong>Role:</strong> Alert</span>
+			<span class="type meta"><strong>Politeness:</strong> Assertive</span>
+			<span class="atomic meta"><strong>Atomic:</strong> True</span>
+			<span class="relevant meta"><strong>Relevant:</strong> Additions Text</span>
+			<span class="frame meta"><strong>In Frame:</strong> Yes</span>
 			<div class="path"><em class="id">${regionId}</em><a href="#">${regionCSS}</a></div>
 			<div class="content accname">${regionAccName}</div>
+			<div class="content html" data-language="html"><pre>${highlightedCode}</pre></div>
 			<div class="time">${timestamp}</div>
         </li>`);
-
-	if(isScrollAble) {
-		eventsContainer.scrollTop = eventsContainer.scrollHeight;
-	}
+		if(isScrollAble) {
+			eventsContainer.scrollTop = eventsContainer.scrollHeight;
+		}
+	});
 
 	if(!regionsContainer.querySelector(`.region-${regionId}`)) {
 		$(regionsContainer).append(

@@ -215,7 +215,7 @@ body {
         padding: 1rem 1rem 0.5rem 1rem;
         border-bottom: 1px solid #e6e6e6;
 
-        .tag {
+        .meta {
           display: inline-block;
           padding: 0;
           margin: 0 0.5rem 0 0;
@@ -259,6 +259,19 @@ body {
           font-family: 'Monaco', 'Menlo', courier, monospace;
           font-weight: 400;
           font-size: 90%;
+          pre{
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Menlo', courier, monospace;
+            font-weight: 400;
+            font-size: 100%;
+            margin: 0;
+            .close{
+              margin-right: 0.25rem;
+            }
+          }
+          &.html{
+            border-left: 2px solid #e28800;
+          }
         }
       }
     }
@@ -310,7 +323,7 @@ body.dark {
     ol {
       li {
         border-bottom: 1px solid #414141 !important;
-        .tag {
+        .meta {
           color: #cdcdcd !important;
         }
 

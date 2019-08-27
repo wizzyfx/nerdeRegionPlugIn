@@ -193,14 +193,14 @@ body {
   padding: 1rem 1rem 0.5rem 1rem;
   border-bottom: 1px solid #e6e6e6;
 }
-#logs #events ol li .tag {
+#logs #events ol li .meta {
   display: inline-block;
   padding: 0;
   margin: 0 0.5rem 0 0;
   font-size: 90%;
   color: #282828;
 }
-#logs #events ol li .tag strong {
+#logs #events ol li .meta strong {
   font-weight: 600;
 }
 #logs #events ol li .time {
@@ -234,6 +234,19 @@ body {
   font-family: 'Monaco', 'Menlo', courier, monospace;
   font-weight: 400;
   font-size: 90%;
+}
+#logs #events ol li .content pre {
+  white-space: pre-wrap;
+  font-family: 'Monaco', 'Menlo', courier, monospace;
+  font-weight: 400;
+  font-size: 100%;
+  margin: 0;
+}
+#logs #events ol li .content pre .close {
+  margin-right: 0.25rem;
+}
+#logs #events ol li .content.html {
+  border-left: 2px solid #e28800;
 }
 body.dark #toolbar {
   background-color: #242424;
@@ -272,7 +285,7 @@ body.dark #events {
 body.dark #events ol li {
   border-bottom: 1px solid #414141 !important;
 }
-body.dark #events ol li .tag {
+body.dark #events ol li .meta {
   color: #cdcdcd !important;
 }
 body.dark #events ol li .time {
