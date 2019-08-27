@@ -8,7 +8,6 @@
 body {
   padding: 0;
   margin: 0;
-  font: 400 13px system-ui;
 }
 
 #toolbar {
@@ -162,7 +161,7 @@ body {
       border: none;
       background: none;
       margin: 0;
-      padding: 0.5rem 1rem;
+      padding: 1rem;
       width: 100%;
       box-sizing: border-box;
       text-align: left;
@@ -170,6 +169,18 @@ body {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+
+      em.id{
+        font-style: normal;
+        font-weight: normal;
+        background-color: #535353;
+        color: #fff;
+        border-radius: 0.25em;
+        padding: 0.1em 0.2em;
+        line-height: 1em;
+        font-size: 85%;
+        margin-right: 0.5em;
+      }
 
       &.all {
         padding: 1rem;
@@ -200,59 +211,53 @@ body {
       box-sizing: border-box;
 
       li {
-        padding: 1rem;
+        padding: 1rem 1rem 0.5rem 1rem;
         border-bottom: 1px solid #e6e6e6;
 
         .tag {
           display: inline-block;
           padding: 0;
-          margin: 0 0.33rem 0 0;
+          margin: 0 0.5rem 0 0;
           font-size: 90%;
-          color: #2229ab;
-
+          color: #282828;
           strong{
-            color: #9b4804;
-            font-weight: 500;
+            font-weight: 600;
           }
         }
 
         .time {
-          color: #6a6a6a;
+          font-size: 85%;
+          color: rgba(0, 126, 226, 0.75);
+          padding: 0.5rem 0 0 0;
         }
 
         .path {
           padding: 0.5rem 0;
-          color: #881280;
           font-weight: 500;
-          .icon:before {
-            content: '\e800';
+          a {
+            color: #007ee2;
+            text-decoration: none;
+          }
+          em.id{
+            font-style: normal;
+            font-weight: normal;
+            background-color: #007ee2;
+            color: #fff;
+            border-radius: 0.25em;
+            padding: 0.1em 0.2em;
+            line-height: 1em;
+            font-size: 85%;
+            margin-right: 0.5em;
           }
         }
 
         .content {
+          border-left: 2px solid #007ee2;
+          background-color: #fafafa;
           padding: 0.5rem;
-          background-color: #f3f3f3;
-          border-radius: 0.25rem;
-        }
-
-        .icon:before {
-          color: #727272;
-          -moz-osx-font-smoothing: grayscale;
-          -webkit-font-smoothing: antialiased;
-          display: inline-block;
-          font-family: "fontello";
-          font-size: 100%;
-          font-style: normal;
-          font-variant: normal;
-          font-weight: normal;
-          line-height: 1em;
-          margin-left: 0;
-          margin-right: 0;
-          speak: none;
-          text-align: center;
-          text-decoration: inherit;
-          text-transform: none;
-          vertical-align: text-bottom;
+          font-family: 'Monaco', 'Menlo', courier, monospace;
+          font-weight: 400;
+          font-size: 90%;
         }
       }
     }

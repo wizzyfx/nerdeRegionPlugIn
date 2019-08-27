@@ -33,34 +33,14 @@ function processIncoming (message) {
 
 	$(eventsList).append(
 		`<li class="region-${regionId}">
-			<span class="time tag">
-				<em class="icon" aria-hidden="true"></em> ${timestamp}
-			</span>
-			<span class="role tag">
-				
-				<strong>Role:</strong> Alert
-			</span>
-			<span class="type tag">
-				
-				<strong>Politeness:</strong> Assertive
-			</span>
-			<span class="atomic tag">
-				
-				<strong>Atomic:</strong> True
-			</span>
-			<span class="relevant tag">
-				
-				<strong>Relevant:</strong> Additions Text
-			</span>
-			<span class="frame tag">
-				
-				<strong>In Frame:</strong> Yes
-			</span>
-			<div class="path">
-				
-				${regionCSS}
-			</div>
+			<span class="role tag"><strong>Role:</strong> Alert</span>
+			<span class="type tag"><strong>Politeness:</strong> Assertive</span>
+			<span class="atomic tag"><strong>Atomic:</strong> True</span>
+			<span class="relevant tag"><strong>Relevant:</strong> Additions Text</span>
+			<span class="frame tag"><strong>In Frame:</strong> Yes</span>
+			<div class="path"><em class="id">${regionId}</em><a href="#">${regionCSS}</a></div>
 			<div class="content accname">${regionAccName}</div>
+			<div class="time">${timestamp}</div>
         </li>`);
 
 	if(isScrollAble) {
@@ -71,7 +51,7 @@ function processIncoming (message) {
 		$(regionsContainer).append(
 			`<li role="none" class="region region-${regionId}">
 				<button role="tab" aria-selected="false" aria-controls="events" class="tab">
-					${regionCSS}
+					<em class="id">${regionId}</em>${regionCSS}
 				</button>
 			</li>`);
 	}
