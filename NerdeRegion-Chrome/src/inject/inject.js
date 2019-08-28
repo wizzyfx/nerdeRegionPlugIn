@@ -97,22 +97,6 @@ const NerdeRegion = (function () {
 			return node.matches(labelables.join(','));
 		};
 
-		const getLabelingDescendant = function (node) {
-			const labelables = {
-				'figure': 'figcaption',
-				'table': 'caption',
-				'fieldset': 'legend',
-			};
-			if(node.matches(Object.keys(labelables).join(','))) {
-				const tag = node.tagName.toLowerCase();
-				const labelNode = node.querySelector(labelables[tag]);
-				if (labelNode) {
-					return labelNode;
-				}
-			}
-			return false;
-		};
-
 		const getLabelNodes = function (node) {
 			const nodeId = node.id;
 			if (nodeId && /^[A-Za-z][\da-zA-Z_:.-]/.test(nodeId)) {
@@ -298,26 +282,6 @@ const NerdeRegion = (function () {
 		};
 
 		return calculateNode(node);
-	};
-
-
-	const dumpRegions = () => {
-		watchList.forEach((node, i)=>{
-			if(node.isConnected) {
-
-			} else {
-				delete watchList[i];
-			}
-		});
-	};
-
-	const checkAttribute = (node, attribute, values) => {
-		if(node.attributes !== undefined &&
-			attribute in node.attributes &&
-			values.includes(node.attributes[attribute].nodeValue.toLowerCase())) {
-			return true;
-		}
-		return false;
 	};
 
 	const isLiveRegion = (node) => {
