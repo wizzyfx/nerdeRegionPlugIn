@@ -5,14 +5,18 @@
  */
 
 const NerdeRegion = (function () {
-	let watchList = [];
+	let watchNum = 0;
 
-	const regions = [
+	const positiveLookUp = [
 		'[aria-live="polite"]',
 		'[aria-live="assertive"]',
 		'[role="alert"]',
 		'[role="log"]',
 		'[role="status"]'
+	];
+
+	const negativeLookUp = [
+		'[aria-live="off"]'
 	];
 
 	const inFrame = window.self !== window.top;
@@ -159,7 +163,6 @@ const NerdeRegion = (function () {
 
 		let visited = [];
 		const calculateNode = function (currentNode, traversalType = 'normal', ignoreHidden = false, parentNode = {}) {
-			console.log(currentNode);
 
 			if(!(parentNode === currentNode && traversalType === 'aria-labelledby')) {
 				if (visited.includes(currentNode)) {
@@ -219,7 +222,6 @@ const NerdeRegion = (function () {
 
 				/*const labelingDescendant = getLabelingDescendant(currentNode);
 				if(labelingDescendant) {
-					console.log('D5');
 					return calculateNode(labelingDescendant, 'labeling-descendant');
 				}
 
@@ -298,6 +300,17 @@ const NerdeRegion = (function () {
 		return calculateNode(node);
 	};
 
+
+	const dumpRegions = () => {
+		watchList.forEach((node, i)=>{
+			if(node.isConnected) {
+
+			} else {
+				delete watchList[i];
+			}
+		});
+	};
+
 	const checkAttribute = (node, attribute, values) => {
 		if(node.attributes !== undefined &&
 			attribute in node.attributes &&
@@ -307,81 +320,91 @@ const NerdeRegion = (function () {
 		return false;
 	};
 
-	const checkRegion = (mutation) => {
-		if (mutation.type === 'childList' && mutation.addedNodes !== undefined) {
-			for(let node of mutation.addedNodes) {
-				if(checkAttribute(node, 'aria-live', ['polite', 'assertive'])) {
-					return true;
-				}
-			}
+	const isLiveRegion = (node) => {
+		if(node.nodeType === 1 && node.matches(positiveLookUp.join(',')) && !node.matches(negativeLookUp.join(','))) {
+			return true;
 		}
 		return false;
 	};
 
-	const checkRole = (mutation) => {
-		if (mutation.type === 'childList' && mutation.addedNodes !== undefined) {
-			for(let node of mutation.addedNodes) {
-				if(checkAttribute(node, 'role', ['alert', 'log', 'status'])) {
-					if(checkAttribute(node, 'aria-live', ['off'])) {
-						return false;
-					}
-					return true;
-				}
-			}
-		}
-		return false;
-	};
-
-	const pageMutation = (mutationsList)=>{
+	const pageObserver = (mutationsList)=>{
 		for(let mutation of mutationsList) {
-			if(checkRegion(mutation) || checkRole(mutation)) {
-				findRegions();
-				dumpRegions();
+			if (mutation.type === 'childList' && mutation.addedNodes !== undefined) {
+				for(let node of mutation.addedNodes) {
+					if(isLiveRegion(node)) {
+						if(node.nerderegion === undefined) {
+							watchRegion(node);
+						}
+					}
+				}
+			}
+			if(mutation.type === 'childList' && mutation.removedNodes !== undefined) {
+				for(let node of mutation.removedNodes) {
+					if(node.nerderegion === true) {
+						unwatchRegion(node);
+					}
+				}
 			}
 		}
 	};
+	const pageMutation = new MutationObserver(pageObserver);
 
-	const regionMutation = ()=>{
-		dumpRegions();
-	};
-
-	const pageObserver = new MutationObserver(pageMutation);
-	const regionObserver = new MutationObserver(regionMutation);
-
-	const findRegions = () => {
-		document.querySelectorAll(regions.join(',')).forEach((element) => {
-			if(element.nerderegion === undefined) {
-				element.nerderegion = true;
-				element.dataset.nerderegion = 'init';
-			}
-		});
-		document.querySelectorAll('[data-nerderegion=init]').forEach((element) => {
-			watchList.push(element);
-			element.dataset.nerderegion = 'track';
-			element.dataset.nerderegionid = watchList.length.toString();
-			regionObserver.observe(element, {attributes:true, subtree:true, childList: true, characterData:true});
-		});
-	};
-
-	const dumpRegions = () => {
-		watchList.forEach((node, i)=>{
-			if(node.isConnected) {
-				console.log(node.dataset.nerderegionid + ') ' + getPath(node) + ' | ' + node.textContent);
+	const regionObserver = (mutationsList)=>{
+		for(let mutation of mutationsList) {
+			let regionNode = mutation.target;
+			if(regionNode.nerderegion === true) {
+				console.log('change', regionNode);
 				sendObjectToDevTools({
-					action: "regionDump",
-					data: [node.dataset.nerderegionid, getPath(node), node.innerHTML, getAccessibleName(node)],
+					action: "change",
+					data: [watchNum, getPath(regionNode), regionNode.innerHTML, getAccessibleName(regionNode)],
 					framed: inFrame
 				});
 			} else {
-				delete watchList[i];
+				while (regionNode.parentElement) {
+					regionNode = regionNode.parentElement;
+					if(regionNode.nerderegion === true) {
+						sendObjectToDevTools({
+							action: "change",
+							data: [watchNum, getPath(regionNode), regionNode.innerHTML, getAccessibleName(regionNode)],
+							framed: inFrame
+						});
+						return;
+					}
+				}
+			}
+		}
+	};
+	const regionMutation = new MutationObserver(regionObserver);
+
+	const watchRegion = (node) => {
+		console.log('watch', node);
+		watchNum += 1;
+		node.nerderegion = true;
+		node.dataset.nerderegionid = watchNum.toString();
+		sendObjectToDevTools({
+			action: "watch",
+			data: [watchNum, getPath(node), node.innerHTML, getAccessibleName(node)],
+			framed: inFrame
+		});
+		regionMutation.observe(node, {attributes:true, subtree:true, childList: true, characterData:true});
+
+	};
+
+	const unwatchRegion = (node) => {
+		console.log('unwatch', node);
+	};
+
+	const initRegions = () => {
+		document.querySelectorAll(positiveLookUp.join(',')).forEach((node) => {
+			if(node.nerderegion === undefined && !node.matches(negativeLookUp.join(','))) {
+				watchRegion(node);
 			}
 		});
 	};
 
 	const initialize = () => {
-		findRegions();
-		dumpRegions();
-		pageObserver.observe(document.body, {attributeFilter:['role', 'aria-live'], subtree:true, childList: true});
+		initRegions();
+		pageMutation.observe(document.body, {attributeFilter:['role', 'aria-live'], subtree:true, childList: true});
 	};
 
 	if (document.readyState != 'loading') {
