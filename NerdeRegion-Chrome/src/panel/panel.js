@@ -1,7 +1,7 @@
 (function createChannel() {
   //Create a port with service page for continuous message communication
   const port = chrome.extension.connect({
-    name: "nerdeRegionChromeExtension",
+    name: "nerdeRegionChromeExtension"
   });
 
   // Listen to messages from the service page
@@ -22,7 +22,7 @@ function padZero(number, length) {
 }
 
 function processIncoming(message) {
-  const regionId = message.content.data[0];
+  const regionId = "";
   const regionCSS = message.content.data[1];
   const regionAccName = message.content.data[3];
   //let regionHTMLContent = $('<div />').text(message.content.data[2]).html();
@@ -43,10 +43,21 @@ function processIncoming(message) {
     3
   )}`;
 
+  let regionCode = `<li class="region-${encodeURIComponent(
+    message.content.data.regionNum
+  )}">`;
+
+  regionCode += message.content.data.regionNum
+    ? `<span class="role meta"><strong>Role:</strong>${encodeURIComponent(
+        message.content.data.regionRole
+      )}</span>`
+    : "";
+
+
   Rainbow.color(message.content.data[2], "html", function(highlightedCode) {
     $(eventsList).append(
       `<li class="region-${regionId}">
-			<span class="role meta"><strong>Role:</strong> Alert</span>
+			
 			<span class="type meta"><strong>Politeness:</strong> Assertive</span>
 			<span class="atomic meta"><strong>Atomic:</strong> True</span>
 			<span class="relevant meta"><strong>Relevant:</strong> Additions Text</span>
