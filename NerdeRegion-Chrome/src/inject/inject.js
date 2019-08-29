@@ -5,7 +5,9 @@
  */
 
 const NerdeRegion = (function() {
+  const inFrame = window.self !== window.top;
   let watchNum = 0;
+  let captureRegion = false;
 
   const positiveLookUp = [
     '[aria-live="polite"]',
@@ -17,9 +19,9 @@ const NerdeRegion = (function() {
 
   const negativeLookUp = ['[aria-live="off"]'];
 
-  const inFrame = window.self !== window.top;
-
-  const sendObjectToDevTools = (message) => {
+  const sendToDevTools = (message) => {
+    message.framed = inFrame;
+    message.frameURL = inFrame ? window.location.href : "";
     chrome.extension.sendMessage(message);
   };
 
@@ -399,10 +401,9 @@ const NerdeRegion = (function() {
       }
     }
     mutatedParents.forEach((node) => {
-      sendObjectToDevTools({
+      sendToDevTools({
         action: "change",
-        data: getRegionProps(node),
-        framed: inFrame
+        data: getRegionProps(node)
       });
     });
   };
@@ -412,10 +413,9 @@ const NerdeRegion = (function() {
     watchNum += 1;
     node.nerderegion = true;
     node.dataset.nerderegionid = watchNum.toString();
-    sendObjectToDevTools({
+    sendToDevTools({
       action: "watch",
-      data: getRegionProps(node),
-      framed: inFrame
+      data: getRegionProps(node)
     });
     regionMutation.observe(node, {
       attributes: true,
@@ -426,10 +426,9 @@ const NerdeRegion = (function() {
   };
 
   const unwatchRegion = (node) => {
-    sendObjectToDevTools({
+    sendToDevTools({
       action: "unwatch",
-      data: node.dataset.nerderegionid,
-      framed: inFrame
+      data: node.dataset.nerderegionid
     });
     delete node.nerderegion;
   };
@@ -445,12 +444,31 @@ const NerdeRegion = (function() {
     });
   };
 
+  const route = (message) => {
+    if(message.action === 'command'){
+      switch (message.content) {
+      case "startTrack":
+        initRegions();
+        pageMutation.observe(document.body, {
+          attributeFilter: ["role", "aria-live"],
+          subtree: true,
+          childList: true
+        });
+        break;
+      case "stopTrack":
+        pageMutation.disconnect();
+        break;
+      }
+    }
+  };
+
   const initialize = () => {
-    initRegions();
-    pageMutation.observe(document.body, {
-      attributeFilter: ["role", "aria-live"],
-      subtree: true,
-      childList: true
+    chrome.runtime.onMessage.addListener((message) => {
+      route(message);
+    });
+    sendToDevTools({
+      action: "ready",
+      data: window.location.hostname
     });
   };
 

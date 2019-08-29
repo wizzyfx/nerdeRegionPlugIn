@@ -1,10 +1,8 @@
 (function createChannel() {
-  //Create a port with service page for continuous message communication
   const port = chrome.extension.connect({
     name: "nerdeRegionChromeExtension"
   });
 
-  // Listen to messages from the service page
   port.onMessage.addListener(function(message) {
     if (message.sender.tab.id == chrome.devtools.inspectedWindow.tabId) {
       route(message);
@@ -33,7 +31,19 @@ function route(message) {
     case "unwatch":
       removeTab(message.content.data);
       break;
+    case "ready":
+      processPageLoad(message.content);
+      break;
   }
+}
+
+function sendToInspectedPage(message) {
+  message.tabId = chrome.devtools.inspectedWindow.tabId;
+  chrome.extension.sendMessage(message);
+}
+
+function sendCommandToPage(command, data = false) {
+  sendToInspectedPage({ action: "command", content: command, data });
 }
 
 const openInspector = (path) => {
@@ -54,6 +64,42 @@ function addTab(message) {
 
 function removeTab(tabId) {
   $(`#regions li.region-${tabId} button`).addClass("gone");
+  const isScrollAble =
+    Math.abs(
+      eventsContainer.scrollTop +
+        eventsContainer.offsetHeight -
+        eventsContainer.scrollHeight
+    ) < 10;
+
+  $(eventsList).append(
+    `<li class="removal">Region #${tabId} was removed from DOM, or is no longer a live region</li>`
+  );
+
+  if (isScrollAble) {
+    eventsContainer.scrollTop = eventsContainer.scrollHeight;
+  }
+};
+
+function processPageLoad(message) {
+  if ($("#captureButton").hasClass("pause")) {
+    sendCommandToPage("startTrack");
+  }
+  const isScrollAble =
+    Math.abs(
+      eventsContainer.scrollTop +
+        eventsContainer.offsetHeight -
+        eventsContainer.scrollHeight
+    ) < 10;
+
+  if (!message.framed) {
+    $(eventsList).append(
+      '<li class="url">Page Loaded [' + message.data + "]</li>"
+    );
+  }
+
+  if (isScrollAble) {
+    eventsContainer.scrollTop = eventsContainer.scrollHeight;
+  }
 }
 
 function processIncoming(message) {
@@ -74,7 +120,9 @@ function processIncoming(message) {
   )}`;
 
   Rainbow.color(message.data.regionHTML, "html", function(highlightedCode) {
-    let regionCode = `<li class="region-${encodeURI(message.data.regionNum)}">`;
+    let regionCode = `<li class="region region-${encodeURI(
+      message.data.regionNum
+    )}">`;
 
     regionCode += message.data.regionRole
       ? `<span class="role meta"><strong>Role:</strong> ${encodeURI(
@@ -101,7 +149,7 @@ function processIncoming(message) {
       : "";
 
     regionCode += message.data.framed
-      ? `<span class="frame meta"><strong>In Frame:</strong> Yes</span>`
+      ? `<span class="frame meta"><strong>Frame:</strong> ${message.data.frameURL}</span>`
       : "";
 
     regionCode += `<div class="path"><em class="id">${message.data.regionNum}</em><a href="#">${message.data.regionPath}</a></div>`;
@@ -131,6 +179,20 @@ $(".check").on("click", function() {
     $(this)
       .addClass("on")
       .attr("aria-label", "Turn Off Focus Indicator");
+  }
+});
+
+$("#captureButton").on("click", function() {
+  if ($(this).hasClass("pause")) {
+    $(this)
+      .removeClass("pause")
+      .html("Record");
+    sendCommandToPage("stopTrack");
+  } else {
+    $(this)
+      .addClass("pause")
+      .html("Pause");
+    sendCommandToPage("startTrack");
   }
 });
 
