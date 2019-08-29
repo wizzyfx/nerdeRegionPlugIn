@@ -37,7 +37,9 @@ function route(message) {
 }
 
 const openInspector = (path) => {
-  chrome.devtools.inspectedWindow.eval(`inspect(document.querySelector('${path}'));`);
+  chrome.devtools.inspectedWindow.eval(
+    `inspect(document.querySelector('${path}'));`
+  );
 };
 
 function addTab(message) {
@@ -139,7 +141,7 @@ $("#clearButton").on("click", function() {
   );
 });
 
-$(eventsList).on('click', '.path a', function(event) {
+$(eventsList).on("click", ".path a", function(event) {
   openInspector(event.target.text);
 });
 
