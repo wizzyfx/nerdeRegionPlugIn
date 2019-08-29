@@ -7,7 +7,7 @@
   // Listen to messages from the service page
   port.onMessage.addListener(function(message) {
     if (message.sender.tab.id == chrome.devtools.inspectedWindow.tabId) {
-      processIncoming(message);
+      route(message);
     }
   });
 })();
@@ -21,12 +21,37 @@ function padZero(number, length) {
   return ("0".repeat(length) + number).slice(-length);
 }
 
+function route(message) {
+  switch (message.content.action) {
+    case "change":
+      processIncoming(message.content);
+      break;
+    case "watch":
+      addTab(message.content)
+      processIncoming(message.content);
+      break;
+    case "unwatch":
+      removeTab(message.content.data)
+      break;
+  }
+}
+
+function addTab(message) {
+  $(regionsContainer).append(
+    `<li role="none" class="region region-${message.data.regionNum}">
+				<button role="tab" aria-selected="false" aria-controls="events" class="tab">
+					<em class="id">${message.data.regionNum}</em>${message.data.regionPath}
+				</button>
+			</li>`
+  );
+}
+
+function removeTab(tabId) {
+  console.log(tabId)
+  $(`#regions li.region-${tabId} button`).addClass('gone');
+}
+
 function processIncoming(message) {
-  const regionId = "";
-  const regionCSS = message.content.data[1];
-  const regionAccName = message.content.data[3];
-  //let regionHTMLContent = $('<div />').text(message.content.data[2]).html();
-  const regionInFrame = message.content.framed;
   const isScrollAble =
     Math.abs(
       eventsContainer.scrollTop +
@@ -43,45 +68,53 @@ function processIncoming(message) {
     3
   )}`;
 
-  let regionCode = `<li class="region-${encodeURIComponent(
-    message.content.data.regionNum
-  )}">`;
+  Rainbow.color(message.data.regionHTML, "html", function(highlightedCode) {
+    let regionCode = `<li class="region-${encodeURI(message.data.regionNum)}">`;
 
-  regionCode += message.content.data.regionNum
-    ? `<span class="role meta"><strong>Role:</strong>${encodeURIComponent(
-        message.content.data.regionRole
-      )}</span>`
-    : "";
+    regionCode += message.data.regionRole
+      ? `<span class="role meta"><strong>Role:</strong> ${encodeURI(
+          message.data.regionRole
+        )}</span>`
+      : "";
 
+    regionCode += message.data.regionPoliteness
+      ? `<span class="type meta"><strong>Politeness:</strong> ${encodeURI(
+          message.data.regionPoliteness
+        )}</span>`
+      : "";
 
-  Rainbow.color(message.content.data[2], "html", function(highlightedCode) {
-    $(eventsList).append(
-      `<li class="region-${regionId}">
-			
-			<span class="type meta"><strong>Politeness:</strong> Assertive</span>
-			<span class="atomic meta"><strong>Atomic:</strong> True</span>
-			<span class="relevant meta"><strong>Relevant:</strong> Additions Text</span>
-			<span class="frame meta"><strong>In Frame:</strong> Yes</span>
-			<div class="path"><em class="id">${regionId}</em><a href="#">${regionCSS}</a></div>
-			<div class="content accname">${regionAccName}</div>
-			<div class="content html" data-language="html"><pre>${highlightedCode}</pre></div>
-			<div class="time">${timestamp}</div>
-        </li>`
-    );
+    regionCode += message.data.regionAtomic
+      ? `<span class="atomic meta"><strong>Atomic:</strong> ${encodeURI(
+          message.data.regionAtomic
+        )}</span>`
+      : "";
+
+    regionCode += message.data.regionRelevant
+      ? `<span class="relevant meta"><strong>Relevant:</strong> ${encodeURI(
+          message.data.regionRelevant
+        )}</span>`
+      : "";
+
+    regionCode += message.data.framed
+      ? `<span class="frame meta"><strong>In Frame:</strong> Yes</span>`
+      : "";
+
+    regionCode += `<div class="path"><em class="id">${message.data.regionNum}</em><a href="#">${message.data.regionPath}</a></div>`;
+
+    regionCode += `<div class="content accname">${message.data.regionAccName}</div>`;
+
+    regionCode += `<div class="content html" data-language="html"><pre>${highlightedCode}</pre></div>`;
+
+    regionCode += `<div class="time">${timestamp}</div>`;
+
+    regionCode += "</li>";
+
+    $(eventsList).append(regionCode);
+
     if (isScrollAble) {
       eventsContainer.scrollTop = eventsContainer.scrollHeight;
     }
   });
-
-  if (!regionsContainer.querySelector(`.region-${regionId}`)) {
-    $(regionsContainer).append(
-      `<li role="none" class="region region-${regionId}">
-				<button role="tab" aria-selected="false" aria-controls="events" class="tab">
-					<em class="id">${regionId}</em>${regionCSS}
-				</button>
-			</li>`
-    );
-  }
 }
 
 $(".check").on("click", function() {

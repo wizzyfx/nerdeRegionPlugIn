@@ -176,7 +176,7 @@ body {
       em.id {
         font-style: normal;
         font-weight: normal;
-        background-color: #535353;
+        background-color: #007ee2;
         color: #fff;
         border-radius: 0.25em;
         padding: 0.1em 0.2em;
@@ -190,7 +190,10 @@ body {
       }
 
       &.gone {
-        color: #6f6f6f;
+        em.id {
+          background-color: #535353;
+          color: #fff;
+        }
       }
 
       &.active {
@@ -223,6 +226,7 @@ body {
           margin: 0 0.5rem 0 0;
           font-size: 90%;
           color: #282828;
+          text-transform: capitalize;
           strong {
             font-weight: 600;
           }

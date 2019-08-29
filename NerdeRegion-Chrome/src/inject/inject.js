@@ -336,7 +336,7 @@ const NerdeRegion = (function() {
       regionNum: node.dataset.nerderegionid,
       regionPath: getPath(node),
       regionHTML: node.innerHTML,
-      regionAccName: getAccessibleName(node) || false,
+      regionAccName: getAccessibleName(node),
       regionRole: node.getAttribute("role") || false,
       regionPoliteness: node.getAttribute("aria-live") || false,
       regionAtomic: node.getAttribute("aria-atomic") || false,
@@ -385,15 +385,17 @@ const NerdeRegion = (function() {
   const regionObserver = (mutationsList) => {
     let mutatedParents = [];
     for (let mutation of mutationsList) {
-      let regionNode = mutation.target;
-      while (regionNode.parentNode) {
-        if (
-          regionNode.nerderegion === true &&
-          !mutatedParents.includes(regionNode)
-        ) {
-          mutatedParents.push(regionNode);
+      if (mutation.type !== "attributes") {
+        let regionNode = mutation.target;
+        while (regionNode.parentNode) {
+          if (
+            regionNode.nerderegion === true &&
+            !mutatedParents.includes(regionNode)
+          ) {
+            mutatedParents.push(regionNode);
+          }
+          regionNode = regionNode.parentNode;
         }
-        regionNode = regionNode.parentNode;
       }
     }
     mutatedParents.forEach((node) => {
@@ -426,7 +428,7 @@ const NerdeRegion = (function() {
   };
 
   const unwatchRegion = (node) => {
-    sendObjectToDevTools({
+   sendObjectToDevTools({
       action: "unwatch",
       data: node.dataset.nerderegionid,
       framed: inFrame
