@@ -81,7 +81,7 @@ const NerdeRegion = (function() {
         if (sameTagSiblings.length > 1) {
           allSiblings = parent.childNodes;
           let index = -1;
-          let num = 0;
+          let num = 1;
           for (let i = 0; i < allSiblings.length; i++) {
             if (allSiblings[i] == node) {
               index = num;
@@ -399,7 +399,6 @@ const NerdeRegion = (function() {
       }
     }
     mutatedParents.forEach((node) => {
-      console.log("change", node);
       sendObjectToDevTools({
         action: "change",
         data: getRegionProps(node),
@@ -410,7 +409,6 @@ const NerdeRegion = (function() {
   const regionMutation = new MutationObserver(regionObserver);
 
   const watchRegion = (node) => {
-    console.log("watch", node);
     watchNum += 1;
     node.nerderegion = true;
     node.dataset.nerderegionid = watchNum.toString();
@@ -428,13 +426,12 @@ const NerdeRegion = (function() {
   };
 
   const unwatchRegion = (node) => {
-   sendObjectToDevTools({
+    sendObjectToDevTools({
       action: "unwatch",
       data: node.dataset.nerderegionid,
       framed: inFrame
     });
     delete node.nerderegion;
-    console.log("unwatch", node);
   };
 
   const initRegions = () => {

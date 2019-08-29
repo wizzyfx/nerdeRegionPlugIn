@@ -27,14 +27,18 @@ function route(message) {
       processIncoming(message.content);
       break;
     case "watch":
-      addTab(message.content)
+      addTab(message.content);
       processIncoming(message.content);
       break;
     case "unwatch":
-      removeTab(message.content.data)
+      removeTab(message.content.data);
       break;
   }
 }
+
+const openInspector = (path) => {
+  chrome.devtools.inspectedWindow.eval(`inspect(document.querySelector('${path}'));`);
+};
 
 function addTab(message) {
   $(regionsContainer).append(
@@ -47,8 +51,7 @@ function addTab(message) {
 }
 
 function removeTab(tabId) {
-  console.log(tabId)
-  $(`#regions li.region-${tabId} button`).addClass('gone');
+  $(`#regions li.region-${tabId} button`).addClass("gone");
 }
 
 function processIncoming(message) {
@@ -134,6 +137,10 @@ $("#clearButton").on("click", function() {
   $(regionsContainer).html(
     '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
   );
+});
+
+$(eventsList).on('click', '.path a', function(event) {
+  openInspector(event.target.text);
 });
 
 $("body").addClass(chrome.devtools.panels.themeName);
