@@ -10,10 +10,18 @@
   });
 })();
 
-Rainbow.defer = true;
 const eventsContainer = document.querySelector("#events");
 const eventsList = document.querySelector("#events ol");
 const regionsContainer = document.querySelector("#regions");
+
+const htmlEncode = (str) => {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+};
 
 function padZero(number, length) {
   return ("0".repeat(length) + number).slice(-length);
@@ -52,7 +60,22 @@ const openInspector = (path) => {
   );
 };
 
+function getTimeStamp() {
+  const currentTime = new Date();
+  return `${padZero(currentTime.getHours(), 2)}:${padZero(
+    currentTime.getMinutes(),
+    2
+  )}:${padZero(currentTime.getSeconds(), 2)}:${padZero(
+    currentTime.getMilliseconds(),
+    3
+  )}`;
+}
+
 function addTab(message) {
+  const timestamp = getTimeStamp();
+  addToEventList(
+    `<li class="new">Region #${message.data.regionNum} is added to DOM <div class="time">${timestamp}</div></li>`
+  );
   $(regionsContainer).append(
     `<li role="none" class="region region-${message.data.regionNum}">
 				<button role="tab" aria-selected="false" aria-controls="events" class="tab">
@@ -62,112 +85,86 @@ function addTab(message) {
   );
 }
 
-function removeTab(tabId) {
-  $(`#regions li.region-${tabId} button`).addClass("gone");
+function addToEventList(html, timestamp = false) {
   const isScrollAble =
     Math.abs(
       eventsContainer.scrollTop +
         eventsContainer.offsetHeight -
         eventsContainer.scrollHeight
     ) < 10;
-
-  $(eventsList).append(
-    `<li class="removal">Region #${tabId} was removed from DOM, or is no longer a live region</li>`
-  );
-
-  if (isScrollAble) {
-    eventsContainer.scrollTop = eventsContainer.scrollHeight;
-  }
-};
-
-function processPageLoad(message) {
-  if ($("#captureButton").hasClass("pause")) {
-    sendCommandToPage("startTrack");
-  }
-  const isScrollAble =
-    Math.abs(
-      eventsContainer.scrollTop +
-        eventsContainer.offsetHeight -
-        eventsContainer.scrollHeight
-    ) < 10;
-
-  if (!message.framed) {
-    $(eventsList).append(
-      '<li class="url">Page Loaded [' + message.data + "]</li>"
-    );
-  }
-
+  $(eventsList).append(html);
   if (isScrollAble) {
     eventsContainer.scrollTop = eventsContainer.scrollHeight;
   }
 }
 
+function removeTab(tabId) {
+  const timestamp = getTimeStamp();
+  $(`#regions li.region-${tabId} button`).addClass("gone");
+  addToEventList(
+    `<li class="removal">Region #${tabId} was removed from DOM, or is no longer a live region <div class="time">${timestamp}</div></li>`
+  );
+}
+
+function processPageLoad(message) {
+  const timestamp = getTimeStamp();
+  if ($("#captureButton").hasClass("pause")) {
+    sendCommandToPage("startTrack");
+  }
+  if (!message.framed) {
+    addToEventList(`<li class="url">Page Loaded [${message.data}] <div class="time">${timestamp}</div></li>`);
+  }
+}
+
 function processIncoming(message) {
-  const isScrollAble =
-    Math.abs(
-      eventsContainer.scrollTop +
-        eventsContainer.offsetHeight -
-        eventsContainer.scrollHeight
-    ) < 10;
-
   const currentTime = new Date();
-  const timestamp = `${padZero(currentTime.getHours(), 2)}:${padZero(
-    currentTime.getMinutes(),
-    2
-  )}:${padZero(currentTime.getSeconds(), 2)}:${padZero(
-    currentTime.getMilliseconds(),
-    3
-  )}`;
+  const timestamp = getTimeStamp();
 
-  Rainbow.color(message.data.regionHTML, "html", function(highlightedCode) {
-    let regionCode = `<li class="region region-${encodeURI(
-      message.data.regionNum
-    )}">`;
+  let regionCode = `<li class="region region-${encodeURI(
+    message.data.regionNum
+  )}">`;
 
-    regionCode += message.data.regionRole
-      ? `<span class="role meta"><strong>Role:</strong> ${encodeURI(
-          message.data.regionRole
-        )}</span>`
-      : "";
+  regionCode += message.data.regionRole
+    ? `<span class="role meta"><strong>Role:</strong> ${encodeURI(
+        message.data.regionRole
+      )}</span>`
+    : "";
 
-    regionCode += message.data.regionPoliteness
-      ? `<span class="type meta"><strong>Politeness:</strong> ${encodeURI(
-          message.data.regionPoliteness
-        )}</span>`
-      : "";
+  regionCode += message.data.regionPoliteness
+    ? `<span class="type meta"><strong>Politeness:</strong> ${encodeURI(
+        message.data.regionPoliteness
+      )}</span>`
+    : "";
 
-    regionCode += message.data.regionAtomic
-      ? `<span class="atomic meta"><strong>Atomic:</strong> ${encodeURI(
-          message.data.regionAtomic
-        )}</span>`
-      : "";
+  regionCode += message.data.regionAtomic
+    ? `<span class="atomic meta"><strong>Atomic:</strong> ${encodeURI(
+        message.data.regionAtomic
+      )}</span>`
+    : "";
 
-    regionCode += message.data.regionRelevant
-      ? `<span class="relevant meta"><strong>Relevant:</strong> ${encodeURI(
-          message.data.regionRelevant
-        )}</span>`
-      : "";
+  regionCode += message.data.regionRelevant
+    ? `<span class="relevant meta"><strong>Relevant:</strong> ${encodeURI(
+        message.data.regionRelevant
+      )}</span>`
+    : "";
 
-    regionCode += message.data.framed
-      ? `<span class="frame meta"><strong>Frame:</strong> ${message.data.frameURL}</span>`
-      : "";
+  regionCode += message.data.framed
+    ? `<span class="frame meta"><strong>Frame:</strong> ${message.data.frameURL}</span>`
+    : "";
 
-    regionCode += `<div class="path"><em class="id">${message.data.regionNum}</em><a href="#">${message.data.regionPath}</a></div>`;
+  regionCode += `<div class="path"><em class="id">${message.data.regionNum}</em><a href="#">${message.data.regionPath}</a></div>`;
 
-    regionCode += `<div class="content accname">${message.data.regionAccName}</div>`;
+  regionCode += `<div class="content accname">${message.data.regionAccName}</div>`;
 
-    regionCode += `<div class="content html" data-language="html"><pre>${highlightedCode}</pre></div>`;
+  regionCode += `<div class="content html"><pre>${htmlEncode(
+    message.data.regionHTML
+  )}</pre></div>`;
 
-    regionCode += `<div class="time">${timestamp}</div>`;
+  regionCode += `<div class="time">${timestamp}</div>`;
 
-    regionCode += "</li>";
+  regionCode += "</li>";
 
-    $(eventsList).append(regionCode);
-
-    if (isScrollAble) {
-      eventsContainer.scrollTop = eventsContainer.scrollHeight;
-    }
-  });
+  addToEventList(regionCode);
 }
 
 $(".check").on("click", function() {
@@ -201,6 +198,7 @@ $("#clearButton").on("click", function() {
   $(regionsContainer).html(
     '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
   );
+  sendCommandToPage("reset");
 });
 
 $(eventsList).on("click", ".path a", function(event) {

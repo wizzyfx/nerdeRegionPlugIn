@@ -352,7 +352,7 @@ const NerdeRegion = (function() {
         for (let node of mutation.addedNodes) {
           if (isLiveRegion(node)) {
             if (node.nerderegion === undefined) {
-              watchRegion(node);
+              watchRegion(node, false);
             }
           }
         }
@@ -372,7 +372,7 @@ const NerdeRegion = (function() {
           isLiveRegion(mutation.target) &&
           mutation.target.nerderegion === undefined
         ) {
-          watchRegion(mutation.target);
+          watchRegion(mutation.target, false);
         } else if (
           !isLiveRegion(mutation.target) &&
           mutation.target.nerderegion
@@ -409,13 +409,14 @@ const NerdeRegion = (function() {
   };
   const regionMutation = new MutationObserver(regionObserver);
 
-  const watchRegion = (node) => {
+  const watchRegion = (node, inDOM) => {
     watchNum += 1;
     node.nerderegion = true;
     node.dataset.nerderegionid = watchNum.toString();
     sendToDevTools({
       action: "watch",
-      data: getRegionProps(node)
+      data: getRegionProps(node),
+      inDOM: inDOM
     });
     regionMutation.observe(node, {
       attributes: true,
@@ -435,29 +436,45 @@ const NerdeRegion = (function() {
 
   const initRegions = () => {
     document.querySelectorAll(positiveLookUp.join(",")).forEach((node) => {
-      if (
-        node.nerderegion === undefined &&
-        !node.matches(negativeLookUp.join(","))
-      ) {
-        watchRegion(node);
+      if (!node.matches(negativeLookUp.join(","))) {
+        watchRegion(node, true);
       }
+    });
+    pageMutation.observe(document.body, {
+      attributeFilter: ["role", "aria-live"],
+      subtree: true,
+      childList: true
     });
   };
 
+  const resetRegions = () => {
+    document.querySelectorAll("[data-nerderegionid]").forEach((node) => {
+      delete node.nerderegion;
+      delete node.dataset.nerderegionid;
+    });
+    watchNum = 0;
+  };
+
   const route = (message) => {
-    if(message.action === 'command'){
+    if (message.action === "command") {
       switch (message.content) {
-      case "startTrack":
-        initRegions();
-        pageMutation.observe(document.body, {
-          attributeFilter: ["role", "aria-live"],
-          subtree: true,
-          childList: true
-        });
-        break;
-      case "stopTrack":
-        pageMutation.disconnect();
-        break;
+        case "startTrack":
+          captureRegion = true;
+          initRegions();
+          break;
+        case "stopTrack":
+          captureRegion = false;
+          pageMutation.disconnect();
+          regionMutation.disconnect();
+          break;
+        case "reset":
+          captureRegion = false;
+          pageMutation.disconnect();
+          regionMutation.disconnect();
+          resetRegions();
+          captureRegion = true;
+          initRegions();
+          break;
       }
     }
   };
@@ -466,10 +483,12 @@ const NerdeRegion = (function() {
     chrome.runtime.onMessage.addListener((message) => {
       route(message);
     });
-    sendToDevTools({
-      action: "ready",
-      data: window.location.hostname
-    });
+    if (captureRegion){
+      sendToDevTools({
+        action: "ready",
+        data: window.location.hostname
+      });
+    }
   };
 
   if (document.readyState != "loading") {

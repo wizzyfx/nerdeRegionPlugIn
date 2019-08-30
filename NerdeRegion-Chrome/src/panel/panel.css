@@ -250,6 +250,18 @@ body {
 #logs #events ol li .content.html {
   border-left: 2px solid #e28800;
 }
+#logs #events ol li.removal {
+  background-color: #fff2f2;
+  font-size: 90%;
+}
+#logs #events ol li.new {
+  background-color: #f2fdff;
+  font-size: 90%;
+}
+#logs #events ol li.url {
+  background-color: #fffdf2;
+  font-size: 90%;
+}
 body.dark #toolbar {
   background-color: #242424;
   border-bottom-color: #525252;
