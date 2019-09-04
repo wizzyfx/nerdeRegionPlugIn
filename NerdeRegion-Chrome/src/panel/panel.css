@@ -93,16 +93,6 @@ body {
 #toolbar .toolbarButton.reset:before {
   content: "\e806";
 }
-#toolbar .toolbarButton.resume,
-#toolbar .toolbarButton.pause {
-  width: 4.25rem;
-}
-#toolbar .toolbarButton.resume:before {
-  content: "\e805";
-}
-#toolbar .toolbarButton.pause:before {
-  content: "\e804";
-}
 #toolbar .toolbarButton.check:before {
   content: "\f096";
   position: relative;

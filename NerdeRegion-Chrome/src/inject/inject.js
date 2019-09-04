@@ -7,7 +7,6 @@
 const NerdeRegion = (function() {
   const inFrame = window.self !== window.top;
   let watchNum = 0;
-  let isPaused = false;
 
   const positiveLookUp = [
     '[aria-live="polite"]',
@@ -464,12 +463,6 @@ const NerdeRegion = (function() {
       switch (message.content) {
         case "startTrack":
           initRegions();
-          break;
-        case "pauseTrack":
-          isPaused = true;
-          break;
-        case "resumeTrack":
-          isPaused = false;
           break;
         case "reset":
           pageMutation.disconnect();

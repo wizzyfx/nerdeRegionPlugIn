@@ -15,7 +15,6 @@ const eventsList = document.querySelector("#events ol");
 const regionsContainer = document.querySelector("#regions");
 
 let pageInitialized = false;
-let isPaused = false;
 let useCSSGroups = false;
 let usePersistentLog = false;
 let useAccName = false;
@@ -196,34 +195,11 @@ $(".check").on("click", function() {
   }
 });
 
-$("#pauseButton").on("click", function() {
-  if ($(this).hasClass("pause")) {
-    sendCommandToPage("pauseTrack");
-    isPaused = true;
-    $(this)
-      .removeClass("pause")
-      .html("Resume");
-  } else {
-    sendCommandToPage("resumeTrack");
-    isPaused = false;
-    $(this)
-      .addClass("pause")
-      .html("Pause");
-  }
-});
-
 $("#resetButton").on("click", function() {
   $(eventsList).empty();
   $(regionsContainer).html(
     '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
   );
-  if (isPaused) {
-    sendCommandToPage("resumeTrack");
-    isPaused = false;
-    $("#pauseButton")
-      .addClass("pause")
-      .html("Pause");
-  }
   sendCommandToPage("reset");
 });
 
