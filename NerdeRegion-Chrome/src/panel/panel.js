@@ -123,15 +123,17 @@ function removeTab(tabId) {
 }
 
 function processPageLoad(message) {
-  const timestamp = getTimeStamp();
-  if ($("#captureButton").hasClass("pause")) {
-    sendCommandToPage("startTrack");
-  }
   if (!message.framed) {
+    const timestamp = getTimeStamp();
+    $(eventsList).empty();
+    $(regionsContainer).html(
+      '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
+    );
     addToEventList(
       `<li class="url">Page Loaded [${message.data}] <div class="time">${timestamp}</div></li>`
     );
   }
+  sendCommandToPage("startTrack");
 }
 
 function processIncoming(message) {
@@ -187,11 +189,9 @@ function processIncoming(message) {
 
 $(".check").on("click", function() {
   if ($(this).hasClass("on")) {
-    $(this)
-      .removeClass("on")
+    $(this).removeClass("on");
   } else {
-    $(this)
-      .addClass("on")
+    $(this).addClass("on");
   }
 });
 

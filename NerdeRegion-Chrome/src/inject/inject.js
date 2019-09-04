@@ -345,27 +345,44 @@ const NerdeRegion = (function() {
     );
   };
 
-  const pageObserver = (mutationsList) => {
-    for (let mutation of mutationsList) {
-      if (mutation.type === "childList" && mutation.addedNodes !== undefined) {
-        for (let node of mutation.addedNodes) {
-          if (isLiveRegion(node)) {
-            if (node.nerderegion === undefined) {
-              watchRegion(node, false);
-            }
-          }
+  function walkTheDOM(node, handler) {
+    if (node.nodeType === 1) {
+      handler(node);
+      if (node.children.length) {
+        for (let childNode of node.children) {
+          walkTheDOM(childNode, handler);
         }
       }
+    }
+  }
+
+  const pageObserver = (mutationsList) => {
+    for (let mutation of mutationsList) {
       if (
         mutation.type === "childList" &&
         mutation.removedNodes !== undefined
       ) {
-        for (let node of mutation.removedNodes) {
-          if (node.nerderegion === true) {
-            unwatchRegion(node);
-          }
+        for (let removedNode of mutation.removedNodes) {
+          walkTheDOM(removedNode, (node) => {
+            if (node.nerderegion === true) {
+              unwatchRegion(node);
+            }
+          });
         }
       }
+
+      if (mutation.type === "childList" && mutation.addedNodes !== undefined) {
+        for (let addedNode of mutation.addedNodes) {
+          walkTheDOM(addedNode, (node) => {
+            if (isLiveRegion(node)) {
+              if (node.nerderegion === undefined) {
+                watchRegion(node, false);
+              }
+            }
+          });
+        }
+      }
+
       if (mutation.type === "attributes") {
         if (
           isLiveRegion(mutation.target) &&
