@@ -68,7 +68,8 @@ body {
     .icon-code:before { content: '\f121'; }
     .icon-checked:before { content: '\f14a';}
     .icon-busy:before { content: '\f250'; }
-    .icon-info:before { content: '\e806'; }*/
+    .icon-info:before { content: '\e806'; }
+    .icon-reset:before { content: '\e806'; }*/
 }
 #toolbar .toolbarButton:before {
   font-family: "fontello";
@@ -89,14 +90,14 @@ body {
   font-size: 133%;
   vertical-align: text-bottom;
 }
-#toolbar .toolbarButton.clear::before {
-  content: "\e807";
+#toolbar .toolbarButton.reset:before {
+  content: "\e806";
 }
-#toolbar .toolbarButton.record,
+#toolbar .toolbarButton.resume,
 #toolbar .toolbarButton.pause {
   width: 4.25rem;
 }
-#toolbar .toolbarButton.record:before {
+#toolbar .toolbarButton.resume:before {
   content: "\e805";
 }
 #toolbar .toolbarButton.pause:before {

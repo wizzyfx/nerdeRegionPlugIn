@@ -14,6 +14,12 @@ const eventsContainer = document.querySelector("#events");
 const eventsList = document.querySelector("#events ol");
 const regionsContainer = document.querySelector("#regions");
 
+let pageInitialized = false;
+let isPaused = false;
+let useCSSGroups = false;
+let usePersistentLog = false;
+let useAccName = false;
+
 const htmlEncode = (str) => {
   return str
     .replace(/&/g, "&amp;")
@@ -39,6 +45,9 @@ function route(message) {
     case "unwatch":
       removeTab(message.content.data);
       break;
+    case "initialized":
+      pageInitialized = true;
+      break;
     case "ready":
       processPageLoad(message.content);
       break;
@@ -54,11 +63,11 @@ function sendCommandToPage(command, data = false) {
   sendToInspectedPage({ action: "command", content: command, data });
 }
 
-const openInspector = (path) => {
+function openInspector(path) {
   chrome.devtools.inspectedWindow.eval(
     `inspect(document.querySelector('${path}'));`
   );
-};
+}
 
 function getTimeStamp() {
   const currentTime = new Date();
@@ -74,7 +83,9 @@ function getTimeStamp() {
 function addTab(message) {
   const timestamp = getTimeStamp();
   addToEventList(
-    `<li class="new">Region #${message.data.regionNum} is added to DOM <div class="time">${timestamp}</div></li>`
+    `<li class="new">Region #${message.data.regionNum} is ${
+      message.inDom ? "found in" : "added to"
+    } DOM <div class="time">${timestamp}</div></li>`
   );
   $(regionsContainer).append(
     `<li role="none" class="region region-${message.data.regionNum}">
@@ -98,6 +109,12 @@ function addToEventList(html, timestamp = false) {
   }
 }
 
+function panelShown() {
+  if (!pageInitialized) {
+    sendCommandToPage("startTrack");
+  }
+}
+
 function removeTab(tabId) {
   const timestamp = getTimeStamp();
   $(`#regions li.region-${tabId} button`).addClass("gone");
@@ -112,7 +129,9 @@ function processPageLoad(message) {
     sendCommandToPage("startTrack");
   }
   if (!message.framed) {
-    addToEventList(`<li class="url">Page Loaded [${message.data}] <div class="time">${timestamp}</div></li>`);
+    addToEventList(
+      `<li class="url">Page Loaded [${message.data}] <div class="time">${timestamp}</div></li>`
+    );
   }
 }
 
@@ -171,33 +190,40 @@ $(".check").on("click", function() {
   if ($(this).hasClass("on")) {
     $(this)
       .removeClass("on")
-      .attr("aria-label", "Turn On Focus Indicator");
   } else {
     $(this)
       .addClass("on")
-      .attr("aria-label", "Turn Off Focus Indicator");
   }
 });
 
-$("#captureButton").on("click", function() {
+$("#pauseButton").on("click", function() {
   if ($(this).hasClass("pause")) {
+    sendCommandToPage("pauseTrack");
+    isPaused = true;
     $(this)
       .removeClass("pause")
-      .html("Record");
-    sendCommandToPage("stopTrack");
+      .html("Resume");
   } else {
+    sendCommandToPage("resumeTrack");
+    isPaused = false;
     $(this)
       .addClass("pause")
       .html("Pause");
-    sendCommandToPage("startTrack");
   }
 });
 
-$("#clearButton").on("click", function() {
+$("#resetButton").on("click", function() {
   $(eventsList).empty();
   $(regionsContainer).html(
     '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
   );
+  if (isPaused) {
+    sendCommandToPage("resumeTrack");
+    isPaused = false;
+    $("#pauseButton")
+      .addClass("pause")
+      .html("Pause");
+  }
   sendCommandToPage("reset");
 });
 

@@ -96,18 +96,19 @@ body {
     .icon-code:before { content: '\f121'; }
     .icon-checked:before { content: '\f14a';}
     .icon-busy:before { content: '\f250'; }
-    .icon-info:before { content: '\e806'; }*/
+    .icon-info:before { content: '\e806'; }
+    .icon-reset:before { content: '\e806'; }*/
 
-    &.clear::before {
-      content: "\e807";
+    &.reset:before {
+      content: "\e806";
     }
 
-    &.record,
+    &.resume,
     &.pause {
       width: 4.25rem;
     }
 
-    &.record:before {
+    &.resume:before {
       content: "\e805";
     }
 
@@ -279,15 +280,15 @@ body {
             border-left: 2px solid #e28800;
           }
         }
-        &.removal{
+        &.removal {
           background-color: #fff2f2;
           font-size: 90%;
         }
-        &.new{
+        &.new {
           background-color: #f2fdff;
           font-size: 90%;
         }
-        &.url{
+        &.url {
           background-color: #fffdf2;
           font-size: 90%;
         }
@@ -340,7 +341,7 @@ body.dark {
     color: #cdcdcd;
 
     ol {
-      li{
+      li {
         border-bottom: 1px solid #414141 !important;
         .meta {
           color: #cdcdcd !important;

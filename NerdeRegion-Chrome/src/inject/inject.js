@@ -7,7 +7,7 @@
 const NerdeRegion = (function() {
   const inFrame = window.self !== window.top;
   let watchNum = 0;
-  let captureRegion = false;
+  let isPaused = false;
 
   const positiveLookUp = [
     '[aria-live="polite"]',
@@ -73,7 +73,7 @@ const NerdeRegion = (function() {
           break;
         }
       }
-      if (className != "") {
+      if (className !== "") {
         path = className + (path ? ">" + path : "");
         break;
       }
@@ -85,10 +85,10 @@ const NerdeRegion = (function() {
           let index = -1;
           let num = 1;
           for (let i = 0; i < allSiblings.length; i++) {
-            if (allSiblings[i] == node) {
+            if (allSiblings[i] === node) {
               index = num;
             }
-            if (allSiblings[i].nodeType == 1) num++;
+            if (allSiblings[i].nodeType === 1) num++;
           }
           if (index > 1) {
             name += ":nth-child(" + index + ")";
@@ -325,14 +325,6 @@ const NerdeRegion = (function() {
     return calculateNode(node);
   };
 
-  const isLiveRegion = (node) => {
-    return (
-      node.nodeType === 1 &&
-      node.matches(positiveLookUp.join(",")) &&
-      !node.matches(negativeLookUp.join(","))
-    );
-  };
-
   const getRegionProps = (node) => {
     return {
       regionNum: node.dataset.nerderegionid,
@@ -346,7 +338,15 @@ const NerdeRegion = (function() {
     };
   };
 
-  const pageObserver = (mutationsList, observer) => {
+  const isLiveRegion = (node) => {
+    return (
+      node.nodeType === 1 &&
+      node.matches(positiveLookUp.join(",")) &&
+      !node.matches(negativeLookUp.join(","))
+    );
+  };
+
+  const pageObserver = (mutationsList) => {
     for (let mutation of mutationsList) {
       if (mutation.type === "childList" && mutation.addedNodes !== undefined) {
         for (let node of mutation.addedNodes) {
@@ -409,14 +409,14 @@ const NerdeRegion = (function() {
   };
   const regionMutation = new MutationObserver(regionObserver);
 
-  const watchRegion = (node, inDOM) => {
+  const watchRegion = (node, inDom) => {
     watchNum += 1;
     node.nerderegion = true;
     node.dataset.nerderegionid = watchNum.toString();
     sendToDevTools({
       action: "watch",
       data: getRegionProps(node),
-      inDOM: inDOM
+      inDom: inDom
     });
     regionMutation.observe(node, {
       attributes: true,
@@ -440,6 +440,10 @@ const NerdeRegion = (function() {
         watchRegion(node, true);
       }
     });
+    sendToDevTools({
+      action: "initialized",
+      data: window.location.hostname
+    });
     pageMutation.observe(document.body, {
       attributeFilter: ["role", "aria-live"],
       subtree: true,
@@ -459,20 +463,18 @@ const NerdeRegion = (function() {
     if (message.action === "command") {
       switch (message.content) {
         case "startTrack":
-          captureRegion = true;
           initRegions();
           break;
-        case "stopTrack":
-          captureRegion = false;
-          pageMutation.disconnect();
-          regionMutation.disconnect();
+        case "pauseTrack":
+          isPaused = true;
+          break;
+        case "resumeTrack":
+          isPaused = false;
           break;
         case "reset":
-          captureRegion = false;
           pageMutation.disconnect();
           regionMutation.disconnect();
           resetRegions();
-          captureRegion = true;
           initRegions();
           break;
       }
@@ -483,15 +485,13 @@ const NerdeRegion = (function() {
     chrome.runtime.onMessage.addListener((message) => {
       route(message);
     });
-    if (captureRegion){
-      sendToDevTools({
-        action: "ready",
-        data: window.location.hostname
-      });
-    }
+    sendToDevTools({
+      action: "ready",
+      data: window.location.hostname
+    });
   };
 
-  if (document.readyState != "loading") {
+  if (document.readyState !== "loading") {
     initialize();
   } else {
     document.addEventListener("DOMContentLoaded", initialize);
