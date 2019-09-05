@@ -5,7 +5,7 @@
  */
 
 const NerdeRegion = (function() {
-  const debug = true;
+  const debug = false;
   const inFrame = window.self !== window.top;
   let watchNum = 0;
 
