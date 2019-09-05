@@ -226,6 +226,9 @@ $("#resetButton").on("click", function() {
   $(regionsContainer)
     .children("li.region")
     .remove();
+  $(regionsContainer)
+    .find("button.all")
+    .click();
   sendCommandToPage("reset");
 });
 
