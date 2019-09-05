@@ -31,17 +31,21 @@ body {
       float: right;
       border: none;
 
-      .about span {
-        display: block;
-        width: 16px;
-        height: 16px;
-        background: #585858;
-        border-radius: 8px;
-        font-weight: bold;
-        text-align: center;
-        color: white;
-        line-height: 16px;
-        font-family: serif;
+      .about {
+        padding: 0 0.25rem 0 0.25rem;
+        border-radius: 50%;
+        span {
+          display: block;
+          width: 16px;
+          height: 16px;
+          background: #585858;
+          border-radius: 8px;
+          font-weight: bold;
+          text-align: center;
+          color: white;
+          line-height: 16px;
+          font-family: serif;
+        }
       }
     }
 
@@ -56,12 +60,19 @@ body {
 
   .toolbarButton {
     color: #5a5a5a;
-    padding: 0;
+    padding: 0 0.25rem 0 0;
     margin: 0 0.5rem 0 0;
     height: 1.5rem;
     border: none;
     background-color: #f3f3f3;
     text-align: left;
+    border-radius: 0.25rem;
+
+    &:focus {
+      background-color: #fff;
+      outline: 0;
+      box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
+    }
 
     &:before {
       font-family: "fontello";
@@ -175,6 +186,7 @@ body {
 
       &.all {
         padding: 1rem;
+        font-weight: 500;
       }
 
       &.gone {
@@ -187,6 +199,15 @@ body {
       &.active {
         background-color: #0079e5;
         color: #fff;
+        em.id {
+          background-color: #fff;
+          color: #007ee2;
+        }
+      }
+
+      &:focus{
+        outline-offset: -3px;
+        outline: 3px solid #008bef;
       }
     }
   }
@@ -253,7 +274,6 @@ body {
         }
 
         .content {
-          border-left: 2px solid #007ee2;
           background-color: #fafafa;
           padding: 0.5rem;
           font-family: "Monaco", "Menlo", courier, monospace;
@@ -271,8 +291,14 @@ body {
           }
           &.html {
             border-left: 2px solid #e28800;
+            display: block;
+          }
+          &.accname {
+            border-left: 2px solid #007ee2;
+            display: none;
           }
         }
+
         &.removal {
           background-color: #fff2f2;
           font-size: 90%;
@@ -287,6 +313,27 @@ body {
           background-color: #fffdf2;
           font-size: 90%;
           text-shadow: 0 0 2px #fff;
+        }
+      }
+
+      &.show-accname {
+        .content {
+          &.html {
+            display: none;
+          }
+          &.accname {
+            display: block;
+          }
+        }
+      }
+
+      &.filtered {
+        li {
+          &.region,
+          &.new,
+          &.removal {
+            display: none;
+          }
         }
       }
     }

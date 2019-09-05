@@ -84,13 +84,15 @@ function addTab(message) {
   const timestamp = getTimeStamp();
   watchNum = message.data.regionNum;
   addToEventList(
-    `<li class="new">Region #${message.data.regionNum} is ${
+    `<li class="new region-${message.data.regionNum}">Region #${
+      message.data.regionNum
+    } is ${
       message.inDom ? "found in" : "added to"
     } DOM <div class="time">${timestamp}</div></li>`
   );
   $(regionsContainer).append(
     `<li role="none" class="region region-${message.data.regionNum}">
-				<button role="tab" aria-selected="false" aria-controls="events" class="tab">
+				<button role="tab" aria-selected="false" aria-controls="events" class="tab" data-region="${message.data.regionNum}">
 					<em class="id">${message.data.regionNum}</em>${message.data.regionPath}
 				</button>
 			</li>`
@@ -122,7 +124,7 @@ function removeTab(tabId) {
     .find(`li.region-${tabId} > button`)
     .addClass("gone");
   addToEventList(
-    `<li class="removal">Region #${tabId} was removed from DOM, or is no longer a live region <div class="time">${timestamp}</div></li>`
+    `<li class="removal region-${tabId}">Region #${tabId} was removed from DOM, or is no longer a live region <div class="time">${timestamp}</div></li>`
   );
 }
 
@@ -207,6 +209,18 @@ $("#persistButton").on("click", function() {
   }
 });
 
+$("#accNameButton").on("click", function() {
+  if ($(this).hasClass("on")) {
+    $(this).removeClass("on");
+    $(eventsList).removeClass("show-accname");
+    useAccName = false;
+  } else {
+    $(this).addClass("on");
+    useAccName = true;
+    $(eventsList).addClass("show-accname");
+  }
+});
+
 $("#resetButton").on("click", function() {
   $(eventsList).empty();
   $(regionsContainer)
@@ -217,6 +231,33 @@ $("#resetButton").on("click", function() {
 
 $(eventsList).on("click", ".path a", function(event) {
   openInspector(event.target.text);
+});
+
+$(regionsContainer).on("click", "li > button", function(event) {
+  const region = event.target.dataset.region;
+  if (region === "all") {
+    $(eventsList).removeClass("filtered");
+    $(regionsContainer)
+      .find("li > button.active")
+      .removeClass("active")
+      .attr("aria-selected", "false");
+    $(event.target)
+      .addClass("active")
+      .attr("aria-selected", "true");
+    $("#filterStyle").empty();
+  } else if (parseInt(region) > 0) {
+    $(eventsList).addClass("filtered");
+    $(regionsContainer)
+      .find("li > button.active")
+      .removeClass("active")
+      .attr("aria-selected", "false");
+    $(event.target)
+      .addClass("active")
+      .attr("aria-selected", "true");
+    $("#filterStyle").text(
+      `.region-${parseInt(region)}{display:block!important}`
+    );
+  }
 });
 
 $("body").addClass(chrome.devtools.panels.themeName);

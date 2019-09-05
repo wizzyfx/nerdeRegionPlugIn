@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="panel.css">
     <title>NerdeRegion</title>
+    <style id="filterStyle"></style>
 </head>
 <body>
 <header>
@@ -13,9 +14,7 @@
         </div>
         <div class="group last">
             <button id="persistButton" class="toolbarButton check">Preserve Log</button>
-
-            <!--button disabled id="cssPathButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Group by CSS</button>
-            <button disabled id="highlightButton" class="toolbarButton check" aria-label="Turn On Focus Indicator">Calculate Name (Beta)</button-->
+            <button id="accNameButton" class="toolbarButton check">Calculate Name (Beta)</button>
         </div>
         <div class="group right">
             <button id="infoButton" class="toolbarButton about" aria-label="About NerdeRegion"><span>i</span></button>
@@ -26,7 +25,7 @@
     <div id="logs">
         <ul id="regions" role="tablist">
             <li role="none">
-                <button role="tab" aria-selected="false" aria-controls="events" class="tab all active">
+                <button role="tab" aria-selected="true" aria-controls="events" class="tab all active" data-region="all">
                     All Regions
                 </button>
             </li>
