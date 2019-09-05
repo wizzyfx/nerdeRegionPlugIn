@@ -244,14 +244,17 @@ body {
 #logs #events ol li.removal {
   background-color: #fff2f2;
   font-size: 90%;
+  text-shadow: 0 0 2px #fff;
 }
 #logs #events ol li.new {
   background-color: #f2fdff;
   font-size: 90%;
+  text-shadow: 0 0 2px #fff;
 }
 #logs #events ol li.url {
   background-color: #fffdf2;
   font-size: 90%;
+  text-shadow: 0 0 2px #fff;
 }
 body.dark #toolbar {
   background-color: #242424;

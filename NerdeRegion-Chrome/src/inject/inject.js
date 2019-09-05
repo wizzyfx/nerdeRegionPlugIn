@@ -483,6 +483,7 @@ const NerdeRegion = (function() {
     if (message.action === "command") {
       switch (message.content) {
         case "startTrack":
+          watchNum = message.data ? parseInt(message.data) : 0;
           initRegions();
           break;
         case "reset":

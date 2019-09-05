@@ -18,6 +18,7 @@ let pageInitialized = false;
 let useCSSGroups = false;
 let usePersistentLog = false;
 let useAccName = false;
+let watchNum = 0;
 
 const htmlEncode = (str) => {
   return str
@@ -59,7 +60,7 @@ function sendToInspectedPage(message) {
 }
 
 function sendCommandToPage(command, data = false) {
-  sendToInspectedPage({ action: "command", content: command, data });
+  sendToInspectedPage({ action: "command", content: command, data: data});
 }
 
 function openInspector(path) {
@@ -81,6 +82,7 @@ function getTimeStamp() {
 
 function addTab(message) {
   const timestamp = getTimeStamp();
+  watchNum = message.data.regionNum
   addToEventList(
     `<li class="new">Region #${message.data.regionNum} is ${
       message.inDom ? "found in" : "added to"
@@ -133,7 +135,7 @@ function processPageLoad(message) {
       `<li class="url">Page Loaded [${message.data}] <div class="time">${timestamp}</div></li>`
     );
   }
-  sendCommandToPage("startTrack");
+  sendCommandToPage("startTrack", watchNum);
 }
 
 function processIncoming(message) {
