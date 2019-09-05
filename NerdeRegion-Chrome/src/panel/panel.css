@@ -196,6 +196,11 @@ body {
 #logs #events ol li .meta strong {
   font-weight: 600;
 }
+#logs #events ol li .ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 #logs #events ol li .time {
   font-size: 85%;
   color: rgba(0, 126, 226, 0.75);

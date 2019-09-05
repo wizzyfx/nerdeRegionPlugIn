@@ -352,7 +352,7 @@ const NerdeRegion = (function() {
     );
   };
 
-  function walkTheDOM(node, handler) {
+  const walkTheDOM = (node, handler) => {
     if (node.nodeType === 1) {
       handler(node);
       if (node.children.length) {
@@ -361,7 +361,7 @@ const NerdeRegion = (function() {
         }
       }
     }
-  }
+  };
 
   const pageObserver = (mutationsList) => {
     for (let mutation of mutationsList) {
@@ -502,7 +502,7 @@ const NerdeRegion = (function() {
     });
     sendToDevTools({
       action: "ready",
-      data: window.location.hostname
+      data: window.location.href.toString()
     });
   };
 

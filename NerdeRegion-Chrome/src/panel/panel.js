@@ -60,7 +60,7 @@ function sendToInspectedPage(message) {
 }
 
 function sendCommandToPage(command, data = false) {
-  sendToInspectedPage({ action: "command", content: command, data: data});
+  sendToInspectedPage({ action: "command", content: command, data: data });
 }
 
 function openInspector(path) {
@@ -82,7 +82,7 @@ function getTimeStamp() {
 
 function addTab(message) {
   const timestamp = getTimeStamp();
-  watchNum = message.data.regionNum
+  watchNum = message.data.regionNum;
   addToEventList(
     `<li class="new">Region #${message.data.regionNum} is ${
       message.inDom ? "found in" : "added to"
@@ -118,7 +118,9 @@ function panelShown() {
 
 function removeTab(tabId) {
   const timestamp = getTimeStamp();
-  $(`#regions li.region-${tabId} button`).addClass("gone");
+  $(regionsContainer)
+    .find(`li.region-${tabId} > button`)
+    .addClass("gone");
   addToEventList(
     `<li class="removal">Region #${tabId} was removed from DOM, or is no longer a live region <div class="time">${timestamp}</div></li>`
   );
@@ -127,15 +129,21 @@ function removeTab(tabId) {
 function processPageLoad(message) {
   if (!message.framed) {
     const timestamp = getTimeStamp();
-    $(eventsList).empty();
-    $(regionsContainer).html(
-      '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
-    );
+    if (!usePersistentLog) {
+      $(eventsList).empty();
+      $(regionsContainer)
+        .children("li.region")
+        .remove();
+    } else {
+      $(regionsContainer)
+        .find("li.region > button")
+        .addClass("gone");
+    }
     addToEventList(
-      `<li class="url">Page Loaded [${message.data}] <div class="time">${timestamp}</div></li>`
+      `<li class="url"><div class="ellipsis">Page Loaded [${message.data}]<div><div class="time">${timestamp}</div></li>`
     );
   }
-  sendCommandToPage("startTrack", watchNum);
+  sendCommandToPage("startTrack", usePersistentLog ? watchNum : false);
 }
 
 function processIncoming(message) {
@@ -189,19 +197,21 @@ function processIncoming(message) {
   addToEventList(regionCode);
 }
 
-$(".check").on("click", function() {
+$("#persistButton").on("click", function() {
   if ($(this).hasClass("on")) {
     $(this).removeClass("on");
+    usePersistentLog = false;
   } else {
     $(this).addClass("on");
+    usePersistentLog = true;
   }
 });
 
 $("#resetButton").on("click", function() {
   $(eventsList).empty();
-  $(regionsContainer).html(
-    '<li role="none"><button role="tab" aria-selected="false" aria-controls="events" class="tab all active">All Regions</button></li>'
-  );
+  $(regionsContainer)
+    .children("li.region")
+    .remove();
   sendCommandToPage("reset");
 });
 
