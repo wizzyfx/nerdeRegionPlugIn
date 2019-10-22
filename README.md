@@ -11,6 +11,6 @@ To use the extension, open your browser’s Developer Tools, and navigate to the
 
 NerdeRegion is a free and Open-source project. You can contribute to its source code, or create support requests on GitHub.
 
-##Installation
+## Installation
 
 https://chrome.google.com/webstore/detail/nerderegion/lkcampbojgmgobcfinlkgkodlnlpjieb
