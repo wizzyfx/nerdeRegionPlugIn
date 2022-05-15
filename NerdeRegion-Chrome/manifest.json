@@ -1,6 +1,6 @@
 {
   "name": "NerdeRegion",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "manifest_version": 2,
   "description": "Debug Aria Live Regions",
   "homepage_url": "https://github.com/wizzyfx/nerdeRegionPlugIn",
@@ -14,7 +14,6 @@
     "scripts": ["src/service/background.js"],
     "persistent": false
   },
-  "permissions": ["tabs", "activeTab"],
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
