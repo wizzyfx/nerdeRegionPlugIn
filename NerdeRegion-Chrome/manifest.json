@@ -20,12 +20,6 @@
       "js": ["src/inject/inject.js"]
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["src/inject/*.js"],
-      "matches": ["http://*/*", "https://*/*"]
-    }
-  ],
   "host_permissions": [
     "http://*/*",
     "https://*/*"
@@ -33,8 +27,7 @@
   "permissions": [
     "scripting",
     "activeTab",
-    "tabs",
-    "offscreen"
+    "tabs"
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"
