@@ -38,11 +38,6 @@ chrome.runtime.onConnect.addListener(function(port) {
   });
 });
 
-// Basic message listener
-chrome.runtime.onMessage.addListener(function(request, sender) {
-  return true;
-});
-
 // Clean up when service worker is terminated
 self.addEventListener('unload', () => {
   // Clean up all listeners and ports

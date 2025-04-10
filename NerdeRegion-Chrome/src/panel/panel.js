@@ -4,7 +4,7 @@
   });
 
   port.onMessage.addListener(function(message) {
-    if (message.sender.tab.id == chrome.devtools.inspectedWindow.tabId) {
+    if (message?.sender?.tab?.id === chrome.devtools.inspectedWindow.tabId) {
       route(message);
     }
   });
