@@ -20,6 +20,12 @@
       "js": ["src/inject/inject.js"]
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/inject/*.js"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ],
   "host_permissions": [
     "http://*/*",
     "https://*/*"

@@ -6,18 +6,22 @@ chrome.runtime.onConnect.addListener(function(port) {
   const extensionListener = function(message, sender) {
     if (message.tabId && message.content) {
       if (message.action === "code") {
+        // Instead of executing arbitrary code, we'll use a registered script
         chrome.scripting.executeScript({
           target: { tabId: message.tabId },
-          func: (code) => {
-            // Execute the code in the context of the page
-            return eval(code);
-          },
-          args: [message.content]
+          files: ['src/inject/inject.js']
+        }).catch(error => {
+          console.error('Error injecting script:', error);
         });
       } else if (message.action === "script") {
-        // In Manifest V3, we need to use a different approach for script injection
-        // This would require registering the script in the manifest and using chrome.scripting.executeScript
-        console.warn('Script file injection is not supported in Manifest V3. Please use code injection instead.');
+        // Use the registered script path
+        const scriptPath = chrome.runtime.getURL(message.content);
+        chrome.scripting.executeScript({
+          target: { tabId: message.tabId },
+          files: [scriptPath]
+        }).catch(error => {
+          console.error('Error injecting script:', error);
+        });
       } else {
         chrome.tabs.sendMessage(message.tabId, message);
       }
@@ -28,13 +32,8 @@ chrome.runtime.onConnect.addListener(function(port) {
 
   // Add the listener
   chrome.runtime.onMessage.addListener(extensionListener);
-  messageListeners.add(extensionListener);
-  ports.add(port);
 
   port.onDisconnect.addListener(function(port) {
-    // Clean up listeners and ports
-    messageListeners.delete(extensionListener);
-    ports.delete(port);
     chrome.runtime.onMessage.removeListener(extensionListener);
   });
 });
