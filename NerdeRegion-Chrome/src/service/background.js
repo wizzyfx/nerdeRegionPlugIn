@@ -1,7 +1,3 @@
-// Store active ports and listeners
-const ports = new Set();
-const messageListeners = new Set();
-
 chrome.runtime.onConnect.addListener(function(port) {
   const extensionListener = function(message, sender) {
     if (message.tabId && message.content) {
@@ -36,14 +32,4 @@ chrome.runtime.onConnect.addListener(function(port) {
   port.onDisconnect.addListener(function(port) {
     chrome.runtime.onMessage.removeListener(extensionListener);
   });
-});
-
-// Clean up when service worker is terminated
-self.addEventListener('unload', () => {
-  // Clean up all listeners and ports
-  messageListeners.forEach(listener => {
-    chrome.runtime.onMessage.removeListener(listener);
-  });
-  messageListeners.clear();
-  ports.clear();
 });
