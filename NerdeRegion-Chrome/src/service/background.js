@@ -2,9 +2,22 @@ chrome.runtime.onConnect.addListener(function(port) {
   const extensionListener = function(message, sender) {
     if (message.tabId && message.content) {
       if (message.action === "code") {
-        chrome.tabs.executeScript(message.tabId, { code: message.content });
+        // Instead of executing arbitrary code, we'll use a registered script
+        chrome.scripting.executeScript({
+          target: { tabId: message.tabId },
+          files: ['src/inject/inject.js']
+        }).catch(error => {
+          console.error('Error injecting script:', error);
+        });
       } else if (message.action === "script") {
-        chrome.tabs.executeScript(message.tabId, { file: message.content });
+        // Use the registered script path
+        const scriptPath = chrome.runtime.getURL(message.content);
+        chrome.scripting.executeScript({
+          target: { tabId: message.tabId },
+          files: [scriptPath]
+        }).catch(error => {
+          console.error('Error injecting script:', error);
+        });
       } else {
         chrome.tabs.sendMessage(message.tabId, message);
       }
@@ -12,13 +25,11 @@ chrome.runtime.onConnect.addListener(function(port) {
       port.postMessage({ content: message, sender: sender });
     }
   };
-  chrome.extension.onMessage.addListener(extensionListener);
+
+  // Add the listener
+  chrome.runtime.onMessage.addListener(extensionListener);
 
   port.onDisconnect.addListener(function(port) {
-    chrome.extension.onMessage.removeListener(extensionListener);
+    chrome.runtime.onMessage.removeListener(extensionListener);
   });
-});
-
-chrome.runtime.onMessage.addListener(function(request, sender) {
-  return true;
 });

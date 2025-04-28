@@ -1,10 +1,10 @@
 (function createChannel() {
-  const port = chrome.extension.connect({
+  const port = chrome.runtime.connect({
     name: "nerdeRegionChromeExtension"
   });
 
   port.onMessage.addListener(function(message) {
-    if (message.sender.tab.id == chrome.devtools.inspectedWindow.tabId) {
+    if (message?.sender?.tab?.id === chrome.devtools.inspectedWindow.tabId) {
       route(message);
     }
   });
@@ -56,7 +56,7 @@ function route(message) {
 
 function sendToInspectedPage(message) {
   message.tabId = chrome.devtools.inspectedWindow.tabId;
-  chrome.extension.sendMessage(message);
+  chrome.runtime.sendMessage(message);
 }
 
 function sendCommandToPage(command, data = false) {

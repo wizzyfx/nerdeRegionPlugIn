@@ -22,7 +22,7 @@ const NerdeRegion = (function() {
   const sendToDevTools = (message) => {
     message.framed = inFrame;
     message.frameURL = inFrame ? window.location.href : "";
-    chrome.extension.sendMessage(message);
+    chrome.runtime.sendMessage(message);
   };
 
   const consoleLog = function(things) {
