@@ -1,5 +1,5 @@
-# Default ignored files
-.idea
-libs
-/node_modules/
-/package-lock.json
+/.idea
+/node_modules
+/build
+.DS_Store
+/coverage
