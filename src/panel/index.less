@@ -1,0 +1,309 @@
+@import (inline) '/node_modules/sanitize.css/sanitize.css';
+
+@font-face {
+  font-family: 'Fontello';
+  src: url('../assets/fonts/font/nerde.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body,
+html,
+#nerdeFocus {
+  height: 100%;
+  font-size: 12px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  &.light {
+    color-scheme: light;
+    --primary-color: #383737;
+    --border-color: #d3e3fd;
+    --background-color: #fff;
+    --toolbar-background-color: #fff;
+    --toolbar-hover-color: color-mix(
+      in srgb,
+      var(--primary-color) 8%,
+      transparent
+    );
+    --toolbar-active-color: #1b6ef3;
+    --attention-color: #dc362e;
+    --shadow-color: color-mix(in srgb, var(--primary-color) 10%, white);
+    --highlight-color: color-mix(in srgb, var(--border-color) 25%, transparent);
+  }
+
+  &.dark {
+    color-scheme: dark;
+    --primary-color: #c7c7c7;
+    --border-color: #494c50;
+    --background-color: #202124;
+    --toolbar-background-color: #292a2d;
+    --toolbar-hover-color: color-mix(
+      in srgb,
+      var(--primary-color) 8%,
+      transparent
+    );
+    --toolbar-active-color: #7cacf8;
+    --attention-color: #e46962;
+    --shadow-color: color-mix(in srgb, var(--primary-color) 10%, black);
+    --highlight-color: color-mix(in srgb, var(--border-color) 25%, transparent);
+  }
+
+  background-color: var(--background-color);
+  height: 100%;
+}
+
+#toolbar {
+  align-items: center;
+  background-color: var(--toolbar-background-color);
+  border-bottom: 1px solid transparent;
+  display: flex;
+  flex: 0 0 auto;
+  padding: 0 0.25rem;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  user-select: none;
+  box-shadow: 0 0 1rem 0 var(--shadow-color);
+  z-index: 0;
+
+  .separator {
+    width: 1px;
+    height: 1.25rem;
+    border-left: 1px solid var(--border-color);
+  }
+}
+button.toolbarButton,
+label.toolbarButton {
+  align-items: center;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  border: none;
+  color: var(--primary-color);
+  display: flex;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  height: 2rem;
+  line-height: 1rem;
+  margin: 0.33rem;
+  opacity: 0.9;
+  padding: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    opacity: 1;
+    background-color: var(--toolbar-hover-color);
+  }
+  &:active {
+    opacity: 0.9;
+  }
+  &:focus-visible {
+    outline: 0.2rem solid var(--primary-color);
+  }
+  .icon:before {
+    font-family: Fontello;
+    speak: never;
+    margin-right: 0.33rem;
+    text-shadow: 0 0 1px var(--background-color);
+  }
+  .trash:before {
+    position: relative;
+    top: -0.025rem;
+    content: '\e83d';
+  }
+  .info:before {
+    position: relative;
+    top: 0.025rem;
+    margin-right: 0;
+    font-size: 1.2rem;
+    content: '\e804';
+  }
+}
+
+label.toolbarButton {
+  &:has(input:focus-visible) {
+    outline: 0.2rem solid var(--primary-color);
+  }
+
+  &:has(input:disabled) {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    input {
+      cursor: default;
+    }
+    &:hover {
+      background-color: var(--toolbar-background-color);
+    }
+  }
+
+  input[type='color'] {
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    margin-right: 0.25rem;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 0 1px var(--background-color);
+    border-radius: 0.33rem;
+    outline: 0;
+    &::-webkit-color-swatch {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+    &::-webkit-color-swatch-wrapper {
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  input[type='checkbox'] {
+    @keyframes beat {
+      85% {
+        opacity: 1;
+        scale: 1;
+      }
+      100% {
+        opacity: 0.66;
+        scale: 0.95;
+      }
+    }
+    appearance: none;
+    outline: 0;
+    &::before {
+      display: block;
+      width: 1rem;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      font-family: Fontello;
+      speak: never;
+      margin-right: 0.33rem;
+      text-shadow: 0 0 1px var(--background-color);
+      content: '\f096';
+      position: relative;
+      top: 0.035rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    &:checked {
+      &::before {
+        content: '\f14a';
+        color: var(--toolbar-active-color);
+      }
+    }
+    &.record {
+      &::before {
+        content: '\f111';
+      }
+      &:checked {
+        &::before {
+          animation: beat 3s infinite alternate;
+          transform-origin: center;
+          color: var(--attention-color);
+          content: '\f28b';
+          @media (prefers-reduced-motion) {
+            animation: none;
+          }
+        }
+      }
+    }
+  }
+}
+#history {
+  color: #fff;
+  overflow-y: scroll;
+  margin: 0;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+  flex-grow: 1;
+  counter-reset: nerde;
+  font-family: monospace;
+
+  li {
+    display: block;
+    list-style: none;
+    padding: 0.33rem 1rem 0.33rem 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--primary-color);
+    font-size: 11px;
+
+    &:before {
+      counter-increment: nerde;
+      content: counter(nerde);
+      color: var(--toolbar-active-color);
+      font-weight: normal;
+      display: inline-block;
+      min-width: 2.5rem;
+      text-align: right;
+      padding-right: 0.5rem;
+      line-height: 1.5rem;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+      background-color: var(--toolbar-hover-color);
+      &:before {
+        font-weight: bold;
+      }
+    }
+
+    code.tag {
+      font-weight: bold;
+      display: inline-block;
+      background: var(--toolbar-active-color);
+      color: var(--background-color);
+      font-size: 85%;
+      padding: 0.15rem 0.25rem;
+      border-radius: 0.25rem;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    span.info {
+      &:before {
+        font-family: Fontello;
+        speak: never;
+        display: inline-block;
+        color: var(--primary-color);
+        padding: 0.15rem 0.25rem;
+        border-radius: 0.25rem;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+        background-color: var(--toolbar-hover-color);
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      &.reset:before {
+        content: '\e800';
+      }
+      &.frame:before {
+        content: '\f2d0';
+      }
+      &.hidden:before {
+        content: '\e802';
+      }
+    }
+    &.pageload {
+      background-color: var(--highlight-color);
+    }
+  }
+}

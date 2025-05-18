@@ -1,0 +1,43 @@
+{
+  "name": "NerdeRegion",
+  "version": "0.0.0",
+  "manifest_version": 3,
+
+  "description": "Quickly Debug Aria Live Regions.",
+  "homepage_url": "https://github.com/wizzyfx/nerdeRegionPlugIn",
+  "author": "",
+
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "action": {
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    },
+    "default_popup_": "popup.html"
+  },
+
+  "devtools_page": "devtools.html",
+
+  "host_permissions": ["http://*/*", "https://*/*"],
+
+  "background": {
+    "service_worker": "service.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "match_origin_as_fallback": true,
+      "js": ["inject.js"],
+      "all_frames": true
+    }
+  ]
+}
