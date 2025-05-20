@@ -1,1 +1,1 @@
-chrome.devtools.panels.create('NerdeFocus', '', 'panel.html');
+chrome.devtools.panels.create('NerdeRegion', '', 'panel.html');

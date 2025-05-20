@@ -1,15 +1,10 @@
 import './index.less';
-import { FrameInfo, PanelIntercom } from '../panel';
 
-class NerdeFocusPopUp {
+class NerdeRegionPopUp {
   constructor() {}
 
-  init(): void {
-    chrome?.runtime?.onMessage.addListener(
-      (request: PanelIntercom, sender, sendResponse) => {}
-    );
-  }
+  init(): void {}
 }
 
-const nerdeFocusPopUp = new NerdeFocusPopUp();
-nerdeFocusPopUp.init();
+const nerdeRegionPopUp = new NerdeRegionPopUp();
+nerdeRegionPopUp.init();

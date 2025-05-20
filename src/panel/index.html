@@ -2,37 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>NerdeFocus</title>
+    <title>NerdeRegion Panel</title>
   </head>
   <body>
     <div id="wrapper" class="light">
       <div
         class="toolbar"
         role="toolbar"
-        aria-label="NerdeFocus Controls"
+        aria-label="NerdeRegion Controls"
         id="toolbar"
       >
-        <label class="toolbarButton">
-          <input type="checkbox" class="record" id="recordToggle" />
-          <span>Record</span>
-        </label>
-        <button class="toolbarButton" type="button" id="clearButton">
-          <span aria-hidden="true" class="icon trash"></span>
-          <span>Clear</span>
+        <button class="toolbarButton" type="button" id="resetButton">
+          <span aria-hidden="true" class="icon reset"></span>
+          <span>Reset</span>
         </button>
         <div class="separator"></div>
         <label class="toolbarButton">
-          <input type="checkbox" id="indicatorToggle" />
-          <span>Show Indicator</span>
-        </label>
-        <div class="separator"></div>
-        <label class="toolbarButton">
-          <input type="checkbox" id="animationToggle" />
-          <span>Animate Indicator</span>
+          <input type="checkbox" id="preserveToggle" />
+          <span>Preserve Log</span>
         </label>
         <label class="toolbarButton">
-          <input type="color" id="indicatorColorPicker" />
-          <span>Indicator Color</span>
+          <input type="checkbox" id="nameToggle" />
+          <span>Calculate Name (Beta)</span>
         </label>
         <button
           class="toolbarButton"
@@ -44,8 +35,23 @@
           <span class="visually-hidden">About</span>
         </button>
       </div>
-      <ol id="history">
-      </ol>
+      <div id="logs">
+        <ul id="regions" role="tablist">
+          <li role="none">
+            <button
+              role="tab"
+              aria-selected="true"
+              aria-controls="events"
+              class="tab all active"
+            >
+              All Regions
+            </button>
+          </li>
+        </ul>
+        <div id="events" role="tabpanel" aria-label="Live Region Log">
+          <ol>dddd</ol>
+        </div>
+      </div>
     </div>
   </body>
 </html>

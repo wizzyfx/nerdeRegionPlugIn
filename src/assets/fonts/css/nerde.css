@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'nerde';
-  src: url('../font/nerde.eot?7002978');
-  src: url('../font/nerde.eot?7002978#iefix') format('embedded-opentype'),
-       url('../font/nerde.woff2?7002978') format('woff2'),
-       url('../font/nerde.woff?7002978') format('woff'),
-       url('../font/nerde.ttf?7002978') format('truetype'),
-       url('../font/nerde.svg?7002978#nerde') format('svg');
+  src: url('../font/nerde.eot?52356658');
+  src: url('../font/nerde.eot?52356658#iefix') format('embedded-opentype'),
+       url('../font/nerde.woff2?52356658') format('woff2'),
+       url('../font/nerde.woff?52356658') format('woff'),
+       url('../font/nerde.ttf?52356658') format('truetype'),
+       url('../font/nerde.svg?52356658#nerde') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'nerde';
-    src: url('../font/nerde.svg?7002978#nerde') format('svg');
+    src: url('../font/nerde.svg?52356658#nerde') format('svg');
   }
 }
 */
@@ -59,6 +59,7 @@
 .icon-eye-off:before { content: '\e802'; } /* '' */
 .icon-ccw:before { content: '\e803'; } /* '' */
 .icon-help-circled:before { content: '\e804'; } /* '' */
+.icon-loop:before { content: '\e805'; } /* '' */
 .icon-trash:before { content: '\e83d'; } /* '' */
 .icon-check-empty:before { content: '\f096'; } /* '' */
 .icon-circle:before { content: '\f111'; } /* '' */
