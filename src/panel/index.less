@@ -29,6 +29,7 @@ html,
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow: hidden;
 
   &.light {
     color-scheme: light;
@@ -44,7 +45,7 @@ html,
     --toolbar-active-color: #1b6ef3;
     --attention-color: #dc362e;
     --shadow-color: color-mix(in srgb, var(--primary-color) 10%, white);
-    --highlight-color: color-mix(in srgb, var(--border-color) 25%, transparent);
+    --highlight-color: #0C75DC;
   }
 
   &.dark {
@@ -58,10 +59,10 @@ html,
       var(--primary-color) 8%,
       transparent
     );
-    --toolbar-active-color: #7cacf8;
+    --toolbar-active-color: #0c75dc;
     --attention-color: #e46962;
     --shadow-color: color-mix(in srgb, var(--primary-color) 10%, black);
-    --highlight-color: color-mix(in srgb, var(--border-color) 25%, transparent);
+    --highlight-color: #0C75DC;
   }
 
   background-color: var(--background-color);
@@ -193,11 +194,81 @@ label.toolbarButton {
   margin: 0;
   padding: 0;
   display: flex;
-  #regions{
-    flex: 0 0 15rem;
+  overflow: hidden;
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
   }
+
+  #regions {
+    flex: 0 0 15rem;
+    padding: 0.66rem 0.5rem 0 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    user-select: none;
+    display: block;
+
+    button.tab {
+      border: none;
+      background: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left;
+      color: var(--primary-color);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-weight: 500;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-size: 110%;
+
+      em.id {
+        font-style: normal;
+        font-weight: normal;
+        background-color: var(--toolbar-active-color);
+        color: var(--background-color);
+        border-radius: 0.25em;
+        padding: 0.1em 0.2em;
+        line-height: 1em;
+        font-size: 85%;
+        margin-right: 0.5em;
+      }
+
+      &.active {
+        background-color: var(--highlight-color);
+        color: var(--background-color);
+        font-weight: 600;
+        em.id {
+          background-color: var(--background-color);
+          color: var(--toolbar-active-color);
+        }
+        &:hover {
+          background-color: var(--highlight-color);
+        }
+      }
+
+      &:hover {
+        background-color: var(--toolbar-hover-color);
+      }
+
+    }
+  }
+
   #events {
     flex: 1 1 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     border-left: 1px solid var(--border-color);
   }
 }
